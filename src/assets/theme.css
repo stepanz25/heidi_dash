@@ -1,0 +1,25 @@
+#sex-radio {
+    border: 2px solid #dee2e6;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 20px 50px;
+    max-width: 600px;
+}
+#sex-radio input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+#sex-radio label {
+    margin-right: 30px;
+    cursor: pointer;
+}
+
+.warning {
+    border: 2px solid #dee2e6;
+    background-color: #4e7aca;
+    text-align: center;
+    margin: 0 auto 50px auto;
+    padding: 20px 50px;
+    max-width: 780px;
+}
