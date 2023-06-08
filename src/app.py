@@ -195,7 +195,7 @@ app.layout = dbc.Container([
     ], style={"margin-top": "20px"})
 ],
 className="mt-4")
-fdf
+
 @app.callback(Output("feature_permutation", "srcDoc"))
 def update_output(model):
     feature_permutation = get_permutation_importance(model=pipe_xgb)
