@@ -1,5 +1,17 @@
-name: heidi
+name: tetanus
 channels:
   - conda-forge
   - defaults
-prefix: /Users/tanmayagarwal/opt/miniconda3/envs/heidi
+dependencies:
+  - pandas
+  - jupyterlab
+  - python=3.9
+  - dash
+  - jupyter-dash
+  - geopandas
+  - wget
+  - dash-bootstrap-components
+  - gunicorn~=20.1.0
+  - numpy==1.23.2
+  - shap
+prefix: /Users/tanmayagarwal/opt/miniconda3/envs/tetanus
