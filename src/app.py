@@ -18,7 +18,7 @@ import dash_daq as daq
 
 X_test = pd.read_csv("../data/x_test.csv")
 X_test_enc = pd.read_csv("../data/x_test_enc.csv")
-pipe_rf = joblib.load("/Users/tanmayagarwal/Desktop/591/heidi_dash/src/models/rf.joblib")
+pipe_rf = joblib.load("models/rf.joblib")
 
 
 def figure_to_html_img(figure):
