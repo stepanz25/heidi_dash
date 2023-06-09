@@ -1,8 +1,6 @@
 import pandas as pd
 import joblib
 import shap
-import io
-import base64
 import random
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
@@ -10,23 +8,9 @@ from dash import Dash, html
 
 # Load data and perform some data pre-processing
 
-X_test = pd.read_csv("data/x_test.csv")
-X_test_enc = pd.read_csv("data/x_test_enc.csv")
-pipe_rf = joblib.load("src/models/rf.joblib")
-
-
-
-def figure_to_html_img(figure):
-    """ figure to html base64 png image """
-    try:
-        tmpfile = io.BytesIO()
-        figure.savefig(tmpfile, format='png')
-        encoded = base64.b64encode(tmpfile.getvalue()).decode('utf-8')
-        shap_html = html.Img(src=f"data:image/png;base64, {encoded}")
-        return shap_html
-    except AttributeError:
-        return ""
-
+X_test = pd.read_csv("../data/x_test.csv")
+X_test_enc = pd.read_csv("../data/x_test_enc.csv")
+pipe_rf = joblib.load("../src/models/rf.joblib")
 
 transparent = "#00000000"  # for transparent backgrounds
 color1 = "#234075"  # blue
@@ -42,10 +26,6 @@ app = Dash(__name__, external_stylesheets=external_stylesheets,
            title="HEiDi Classifier")
 
 server = app.server
-choosen_actual = X_test.iloc[[1]].T
-table = dbc.Table.from_dataframe(choosen_actual, striped=True, bordered=True, hover=True)
-table_html = choosen_actual.to_html()
-
 # Define layout
 app.layout = dbc.Container([
 
@@ -200,7 +180,7 @@ def update_patient(n_clicks):
         force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False)
         shap_html = f"<head>{shap.getjs()}</head><body>{force_plot.html()}</body>"
 
-        phy_decision = X_test.iloc[[1]]['Physician.Disposition'].values[0]
+        phy_decision = X_test.iloc[[num]]['Physician.Disposition'].values[0]
         decision = "The Physician suggested {}".format(phy_decision)
 
         return choosen_actual.to_html(), out.to_html(), shap_html, decision
