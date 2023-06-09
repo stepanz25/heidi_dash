@@ -1,24 +1,19 @@
 import pandas as pd
 import joblib
-from shap.plots._force_matplotlib import draw_additive_plot
-
 import shap
 import io
 import base64
-import plotly.express as px
-import plotly.graph_objs as go
-import altair as alt
 import random
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
-from dash import Dash, html, dcc, dash_table
-import dash_daq as daq
+from dash import Dash, html
 
 # Load data and perform some data pre-processing
 
-X_test = pd.read_csv("../data/x_test.csv")
-X_test_enc = pd.read_csv("../data/x_test_enc.csv")
-pipe_rf = joblib.load("models/rf.joblib")
+X_test = pd.read_csv("data/x_test.csv")
+X_test_enc = pd.read_csv("data/x_test_enc.csv")
+pipe_rf = joblib.load("src/models/rf.joblib")
+
 
 
 def figure_to_html_img(figure):
@@ -135,7 +130,7 @@ app.layout = dbc.Container([
                            'textAlign': 'center', 'border-radius': border_radius, "width": "100%"}),
             html.Div([
                 html.Iframe(
-                    id="plot_directors",
+                    id="doctor-decision",
                     style={
                         "border-width": "1",
                         "width": "100%",
@@ -185,10 +180,11 @@ app.layout = dbc.Container([
 @app.callback(Output("patient-table", "srcDoc"),
               Output('patient-prediction', "srcDoc"),
               Output("patient-shap", "srcDoc"),
+              Output("doctor-decision", "srcDoc"),
               Input("generate-button", "n_clicks"))
 def update_patient(n_clicks):
     if n_clicks is None:
-        return "", "", ""
+        return "", "", "", ""
     else:
         num = random.randint(0, 9)
         choosen_actual = X_test.iloc[[num]].T.reset_index()
@@ -202,10 +198,12 @@ def update_patient(n_clicks):
         rf_explainer = shap.TreeExplainer(pipe_rf.named_steps['randomforestclassifier'])
         shap_values = rf_explainer.shap_values(choosen_instance)
         force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False)
-        # force_plot_mpl = draw_additive_plot(force_plot.data, (30, 7), show=False)
         shap_html = f"<head>{shap.getjs()}</head><body>{force_plot.html()}</body>"
 
-        return choosen_actual.to_html(), out.to_html(), shap_html
+        phy_decision = X_test.iloc[[1]]['Physician.Disposition'].values[0]
+        decision = "The Physician suggested {}".format(phy_decision)
+
+        return choosen_actual.to_html(), out.to_html(), shap_html, decision
     # Run app
 
 
