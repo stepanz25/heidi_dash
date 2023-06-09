@@ -1,4 +1,4 @@
-name: tetanus
+name: heidi
 channels:
   - conda-forge
   - defaults
