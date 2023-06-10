@@ -8,9 +8,9 @@ from dash import Dash, html
 
 # Load data and perform some data pre-processing
 
-X_test = pd.read_csv("../data/x_test.csv")
-X_test_enc = pd.read_csv("../data/x_test_enc.csv")
-pipe_rf = joblib.load("../src/models/rf.joblib")
+X_test = pd.read_csv("data/x_test.csv")
+X_test_enc = pd.read_csv("data/x_test_enc.csv")
+pipe_rf = joblib.load("src/models/rf.joblib")
 
 transparent = "#00000000"  # for transparent backgrounds
 color1 = "#234075"  # blue
@@ -19,7 +19,6 @@ plot_text_color = "#234075"  # plot axis and label color
 title_color = "#e3a82b"  # general title and text color
 border_radius = "5px"  # rounded corner radius
 border_width = "3px"  # border width
-
 external_stylesheets = [dbc.themes.YETI, '/assets/theme.css']
 
 app = Dash(__name__, external_stylesheets=external_stylesheets,
@@ -179,7 +178,7 @@ def update_patient(n_clicks):
         shap_values = rf_explainer.shap_values(choosen_instance)
         force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False)
         shap_html = f"<head>{shap.getjs()}</head><body>{force_plot.html()}</body>"
-
+        
         phy_decision = X_test.iloc[[num]]['Physician.Disposition'].values[0]
         decision = "The Physician suggested {}".format(phy_decision)
 
