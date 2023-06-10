@@ -1,0 +1,15 @@
+Feature Name,Meaning
+age,Age of the individual
+workclass,Type of workclass
+fnlwgt,Final weight
+education,Highest level of education
+education.num,Numeric representation of education level
+marital.status,Marital status
+occupation,Occupation
+relationship,Relationship status
+race,Race
+sex,Gender
+capital.gain,Capital gains
+capital.loss,Capital losses
+hours.per.week,Number of hours worked per week
+native.country,Native country
