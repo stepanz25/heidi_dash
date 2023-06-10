@@ -7,18 +7,19 @@ import io
 import base64
 import plotly.express as px
 import plotly.graph_objs as go
-import altair as alt
+import matplotlib.pyplot as plt
 import random
 import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 from dash import Dash, html, dcc, dash_table
-import dash_daq as daq
+#import dash_daq as daq
 
 # Load data and perform some data pre-processing
 
-X_test = pd.read_csv("../data/x_test.csv")
-X_test_enc = pd.read_csv("../data/x_test_enc.csv")
-pipe_rf = joblib.load("models/rf.joblib")
+X_test = pd.read_csv("data/x_test.csv")
+X_test_enc = pd.read_csv("data/x_test_enc.csv")
+feature_data = pd.read_csv("data/feature_data.csv")
+pipe_rf = joblib.load("src/models/rf.joblib")
 
 
 def figure_to_html_img(figure):
@@ -41,15 +42,12 @@ title_color = "#e3a82b"  # general title and text color
 border_radius = "5px"  # rounded corner radius
 border_width = "3px"  # border width
 
-external_stylesheets = [dbc.themes.YETI, '/assets/theme.css']
+my_external_stylesheets = [dbc.themes.YETI, 'src/assets/theme.css']
 
-app = Dash(__name__, external_stylesheets=external_stylesheets,
+app = Dash(__name__, external_stylesheets=my_external_stylesheets,
            title="HEiDi Classifier")
 
 server = app.server
-choosen_actual = X_test.iloc[[1]].T
-table = dbc.Table.from_dataframe(choosen_actual, striped=True, bordered=True, hover=True)
-table_html = choosen_actual.to_html()
 
 # Define layout
 app.layout = dbc.Container([
@@ -98,8 +96,8 @@ app.layout = dbc.Container([
                     html.Div([
                         html.Iframe(
                             id="patient-table",
-                            style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "30px",
-                                   "margin-top": "20px"}
+                            style={'border': '0', 'width': '100%', 'height': '450px', "margin-left": "0px",
+                                   "margin-top": "0px", "text-align": "center"}
 
                         ),
                     ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
@@ -118,36 +116,34 @@ app.layout = dbc.Container([
                     html.Div([
                         html.Iframe(
                             id="patient-prediction",
-                            style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "30px",
-                                   "margin-top": "20px"}
+                            style={'border': '0', 'width': '100%', 'height': '450px', "margin-left": "0px",
+                                   "margin-top": "0px", "text-align": "center"}
                         )
                     ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                              "width": "100%", "height": "470px"}),
-                ],
-                className="panel",
-            )
-        )
-    ]),
-    dbc.Row([
-        dbc.Col([
-            html.H3("Feature Description",
+                              "width": "100%", "height": "100px"}),
+
+                    html.H3("Feature Description",
                     style={"background": color1, "color": title_color,
-                           'textAlign': 'center', 'border-radius': border_radius, "width": "100%"}),
+                           'textAlign': 'center', 'border-radius': border_radius, "width": "100%",  "margin-top": "20px"}),
             html.Div([
                 html.Iframe(
-                    id="plot_directors",
+                    id="feature-table",
                     style={
                         "border-width": "1",
                         "width": "100%",
                         "height": "300px",
                         "top": "20%",
                         "left": "70%",
-                        "margin-top": "25px"
+                        "margin-top": "0px"
                     },
                 ),
-            ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius, "height": "500px"})
-        ], md=4, style={"width": "55%"}),
-
+            ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius, "height": "310px"})
+                ],
+                className="panel",
+            )
+        )
+    ]),
+    dbc.Row([
         dbc.Col(
             html.Div(
                 children=[
@@ -158,12 +154,12 @@ app.layout = dbc.Container([
                         [
                             html.Iframe(
                                 id="patient-shap",
-                                style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "30px",
+                                style={'border': '0', 'width': '100%', 'height': '200px', "margin-left": "0px",
                                        "margin-top": "20px"}
                             )
                         ],
                         style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                               "width": "100%", "height": "500px"})
+                               "width": "100%", "height": "190px"})
                 ],
                 className="panel",
             )
@@ -172,10 +168,20 @@ app.layout = dbc.Container([
     dbc.Row(
         html.Div(
             [
-                dbc.Button("Generate data for new patient", color="primary",
-                           id="generate-button"),
+                dbc.Button(
+                    "Generate Data for New Patient",
+                    color="primary",
+                    id="generate-button",
+                    style={
+                        "backgroundColor": "#234075",
+                        "marginTop": "20px",
+                        "color": "#e3a82b",
+                        "fontWeight": "bold",
+                        "fontSize": "20px"
+                    }
+                )
             ],
-            className="d-grid gap-2 col-6 mx-auto",
+            className="d-grid gap-2 col-6 mx-auto", 
         )
     )
 ],
@@ -184,28 +190,61 @@ app.layout = dbc.Container([
 
 @app.callback(Output("patient-table", "srcDoc"),
               Output('patient-prediction', "srcDoc"),
+              Output("feature-table", "srcDoc"),
               Output("patient-shap", "srcDoc"),
               Input("generate-button", "n_clicks"))
+
+
 def update_patient(n_clicks):
     if n_clicks is None:
-        return "", "", ""
+        return "", "", "", ""
     else:
         num = random.randint(0, 9)
         choosen_actual = X_test.iloc[[num]].T.reset_index()
-        choosen_actual.columns = ['feat_name', 'value']
+        choosen_actual.columns = ['Feature Name', 'Value']
+        choosen_actual.index = choosen_actual.index + 1
+        styled_df = choosen_actual.style \
+            .set_properties(**{'text-align': 'center', 'font-size': '14px', 'width': '290px', 'height': '7px', 'font-family': 'Helvetica'}) \
+            .set_table_styles([
+                {'selector': 'th', 'props': [('background-color', '#234075'), ('color', 'white'), ('font-family', 'Helvetica')]},
+                {'selector': 'td', 'props': [('border', '1px solid #e3a82b'), ('font-family', 'Helvetica')]},
+                {'selector': 'caption', 'props': [('caption-side', 'top'), ('font-weight', 'bold'), ('font-size', '20px'), ('font-family', 'Helvetica'), ('color', '#234075'), ('margin-bottom', '10px')]}
+            ]) \
+            .set_caption(f'\nPatient with Index {num}\n')
 
         choosen_instance = X_test_enc.loc[[num]]
         out = pd.DataFrame(pipe_rf.named_steps['randomforestclassifier'].predict_proba(choosen_instance))
         out.columns = ['class A', 'class B']
-        out = out.style.set_caption("Prediction Probabilities")
+        out = out.style \
+            .set_properties(**{'text-align': 'center', 'font-size': '14px', 'width': '300px', 'height': '7px', 'font-family': 'Helvetica'}) \
+            .set_table_styles([
+                {'selector': 'th', 'props': [('background-color', '#234075'), ('color', 'white'), ('font-family', 'Helvetica')]},
+                {'selector': 'td', 'props': [('border', '1px solid #e3a82b'), ('font-family', 'Helvetica')]},
+                {'selector': 'caption', 'props': [('caption-side', 'top'), ('font-weight', 'bold'), ('font-size', '20px'), ('font-family', 'Helvetica'), ('color', '#234075'), ('margin-bottom', '10px')]}
+            ]) \
+            .set_caption(f'\nSoft Predictions for Patient with Index {num}\n')
+        out = out.hide_index()
+        out = out.format('{:.4f}')
+        
+        feature_data.reset_index(drop=True, inplace=True)
+        feature_data.index = feature_data.index + 1
+        feature_table = feature_data.style \
+            .set_properties(**{'text-align': 'center', 'font-size': '14px', 'height': '7px', 'font-family': 'Helvetica'}) \
+            .set_table_styles([
+                {'selector': 'th', 'props': [('background-color', '#234075'), ('color', 'white'), ('font-family', 'Helvetica')]},
+                {'selector': 'td', 'props': [('border', '1px solid #e3a82b'), ('font-family', 'Helvetica')]},
+                {'selector': 'caption', 'props': [('caption-side', 'top'), ('font-weight', 'bold'), ('font-size', '20px'), ('font-family', 'Helvetica'), ('color', '#234075'), ('margin-bottom', '10px')]},
+                {'selector': '.col0', 'props': [('width', '40%')]},  # Adjust the width of the first column
+                {'selector': '.col1', 'props': [('width', '60%')]},  # Adjust the width of the second column
+            ])
 
         rf_explainer = shap.TreeExplainer(pipe_rf.named_steps['randomforestclassifier'])
         shap_values = rf_explainer.shap_values(choosen_instance)
         force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False)
-        # force_plot_mpl = draw_additive_plot(force_plot.data, (30, 7), show=False)
-        shap_html = f"<head>{shap.getjs()}</head><body>{force_plot.html()}</body>"
+        #force_plot_mpl = draw_additive_plot(force_plot.data, (30, 7), show=False)
+        shap_html = f"<head>{shap.getjs()}</head><body><div style='color: #234075; font-family: Helvetica; font-size: 14px;'>{force_plot.html()}</div></body>"
 
-        return choosen_actual.to_html(), out.to_html(), shap_html
+        return styled_df.to_html(escape=False), out.to_html(), feature_table.to_html(), shap_html
     # Run app
 
 
