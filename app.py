@@ -1,8 +1,7 @@
 import pandas as pd
 import joblib
-from shap.plots._force_matplotlib import draw_additive_plot
-
 import shap
+
 import io
 import base64
 import plotly.express as px
@@ -13,6 +12,12 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Input, Output
 from dash import Dash, html, dcc, dash_table
 #import dash_daq as daq
+
+import random
+import dash_bootstrap_components as dbc
+from dash.dependencies import Input, Output
+from dash import Dash, html
+
 
 # Load data and perform some data pre-processing
 
@@ -127,7 +132,7 @@ app.layout = dbc.Container([
                            'textAlign': 'center', 'border-radius': border_radius, "width": "100%",  "margin-top": "20px"}),
             html.Div([
                 html.Iframe(
-                    id="feature-table",
+                    id="doctor-decision",
                     style={
                         "border-width": "1",
                         "width": "100%",
@@ -192,6 +197,7 @@ app.layout = dbc.Container([
               Output('patient-prediction', "srcDoc"),
               Output("feature-table", "srcDoc"),
               Output("patient-shap", "srcDoc"),
+              Output("doctor-decision", "srcDoc"),
               Input("generate-button", "n_clicks"))
 
 
@@ -244,7 +250,11 @@ def update_patient(n_clicks):
         #force_plot_mpl = draw_additive_plot(force_plot.data, (30, 7), show=False)
         shap_html = f"<head>{shap.getjs()}</head><body><div style='color: #234075; font-family: Helvetica; font-size: 14px;'>{force_plot.html()}</div></body>"
 
-        return styled_df.to_html(escape=False), out.to_html(), feature_table.to_html(), shap_html
+        phy_decision = X_test.iloc[[num]]['Physician.Disposition'].values[0]
+        decision = "The Physician suggested {}".format(phy_decision)
+
+        return styled_df.to_html(escape=False), out.to_html(), feature_table.to_html(), shap_html, decision
+
     # Run app
 
 
