@@ -34,61 +34,6 @@ app = Dash(__name__, external_stylesheets=my_external_stylesheets,
 
 server = app.server
 
-def bar_plot():
-    num = random.randint(0, 20)
-    choosen_instance = X_test_enc.loc[[num]]
-    probability = pipe_rf.named_steps['randomforestclassifier'].predict_proba(choosen_instance)
-    probability_red = probability[0][0] * 100
-    probability_green = probability[0][1] * 100
-
-    buffer = io.StringIO()
-
-    data = np.array([[0.97, 0.03]])
-
-    labels = ['Class A', 'Class B']
-    colors = ['red', 'green']
-
-    fig = go.Figure()
-
-    fig.add_trace(go.Bar(
-        y=[0],
-        x=data[0],
-        orientation='h',
-        marker=dict(color=colors),
-        text=[f'{val:.2f}' for val in data[0]],
-        textposition='auto',
-        textfont=dict(color='white', size=20),
-        name=labels[0]))
-
-    fig.add_trace(go.Bar(
-        y=[0],
-        x=[1 - data[0][0]],
-        orientation='h',
-        marker=dict(color=colors[::-1]),
-        text=[f'{val:.2f}' for val in [1 - data[0][0]]],
-        textposition='auto',
-        textfont=dict(color='white', size=20),
-        name=labels[1]
-        ))
-
-    fig.update_layout(
-        barmode='stack',
-        yaxis=dict(showticklabels=False),
-        xaxis=dict(
-        tickvals=np.arange(0, 1.1, 0.1),
-        title='Probability'
-    ),
-        title='Prediction Probabilities',
-        plot_bgcolor='rgba(0,0,0,0)'
-    )
-
-    fig.write_html(buffer)
-
-    html_bytes = buffer.getvalue().encode()
-    encoded = base64.b64encode(html_bytes).decode()
-
-    return fig.to_html()
-
 # Define layout
 app.layout = dbc.Container([
 
@@ -136,20 +81,12 @@ app.layout = dbc.Container([
                     html.Div([
                         html.Iframe(
                             id="patient-prediction",
-                            srcDoc = bar_plot(),
                             style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "25%",
                                 "margin-top": "20px", "text-align": "center"}
                         )
                     ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
                             "width": "100%", "height": "150px"}),
-                    html.Div([
-                        html.Iframe(
-                            id="fig",
-                            style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "25%",
-                                "margin-top": "20px", "text-align": "center"}
-                        )
-                    ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                            "width": "100%", "height": "150px"}),
+
                     html.Div(
                         id="prediction-label",
                         children=[
@@ -271,7 +208,6 @@ app.layout = dbc.Container([
               Output('patient-prediction', "srcDoc"),
               Output("feature-table", "srcDoc"),
               Output("patient-shap", "srcDoc"),
-              Output("fig", "srcDoc"),
               Output("prediction-label", "children"),
               Input("generate-button", "n_clicks"))
 
@@ -279,7 +215,7 @@ def update_patient(n_clicks):
     num=5
     
     if n_clicks is None:
-        return "", "", "", "", "", ""
+        return "", "", "", "", ""
     else:
         choosen_actual = X_test.iloc[[num]].T.reset_index()
         choosen_actual.columns = ['Feature Name', 'Value']
@@ -369,10 +305,8 @@ def update_patient(n_clicks):
         #decision = "The Physician suggested {}".format(phy_decision)
 
         #print(decision)
-        
-        bar = bar_plot()
 
-        return styled_df.to_html(escape=False), out.to_html(), feature_table.to_html(), shap_html, prediction_label, bar
+        return styled_df.to_html(escape=False), out.to_html(), feature_table.to_html(), shap_html, prediction_label
 
 # Run app
 if __name__ == '__main__':
