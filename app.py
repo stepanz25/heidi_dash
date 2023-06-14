@@ -1,3 +1,4 @@
+# Import required libraries
 import numpy as np
 import pandas as pd
 import joblib
@@ -9,17 +10,21 @@ import base64
 import matplotlib.pyplot as plt
 import io
 import plotly.io as pio
-import explainerdashboard
+
 from dash.dependencies import Input, Output
 from dash import Dash, html, dcc
 
 # Load data and perform some data pre-processing
 
+# Load the test dataset
 X_test = pd.read_csv("data/x_test.csv")
 X_test_enc = pd.read_csv("data/x_test_enc.csv")
 feature_data = pd.read_csv("data/feature_data.csv")
+
+# Load the trained model
 pipe_rf = joblib.load("src/models/rf.joblib")
 
+# Define color codes
 positive_color = "#00FF00"
 negative_color = "#FF0000"
 transparent = "#00000000"  # for transparent backgrounds
@@ -30,19 +35,22 @@ title_color = "#e3a82b"  # general title and text color
 border_radius = "5px"  # rounded corner radius
 border_width = "3px"  # border width
 
+# Define external stylesheets for the Dash app
 my_external_stylesheets = [dbc.themes.YETI, 'src/assets/theme.css']
 
+# Create a Dash app instance
 app = Dash(__name__, external_stylesheets=my_external_stylesheets,
            title="HEiDi Classifier")
 
+# Get the underlying Flask server for deployment
 server = app.server
 
 # Define layout
 app.layout = dbc.Container([
 
+    # Header section
     dbc.Row([
         dbc.Col([html.Img(src="src/assets/logo1.jpg", height="150px")], style={"width": "25%"}),
-
         dbc.Col([html.H1('Classifier Explainer: Predicting HEiDi Triage', className='text-center',
                          style={'color': '#234075', 'textAlign': 'center', "font-weight": "bold", "fontSize": 40,
                                 "margin-top": "80px"})], md=4, style={"color": "#234075", "width": "70%"}),
@@ -55,16 +63,22 @@ app.layout = dbc.Container([
             ),
             dbc.Popover(
                 [
-                    dbc.PopoverHeader("Welcome to Classifier Explainer!"),
+                    dbc.PopoverHeader(html.H4("Welcome to Classifier Explainer!", style={"font-size": "25px"})),
                     dbc.PopoverBody([
                         html.P("This dashboard contains:"),
-                        html.P("🏥 "),
-                        html.P("🏥 "),
-                        html.P("🏥 ")
+                        html.P("🏥 Patient Information: View the details of a randomly selected patient."),
+                        html.P("🏥 Prediction Results: See the soft predictions for the selected patient, indicating the probabilities for each class."),
+                        html.P("🏥 Feature Table: Explore the features and their corresponding values for the selected patient."),
+                        html.P("🏥 SHAP Plot: Visualize the SHAP values to understand the impact of each feature on the model's prediction."),
+                        html.P("🏥 Prediction Label: Get a recommendation based on the model's prediction for the selected patient."),
                     ]),
+                    dbc.PopoverHeader("You can do the following with this dashboard:"),
                     dbc.PopoverBody([
-                        html.P(" "),
-                        html.P("🏥 ")
+                        html.P("🏥 Generate Random Patient: Click the 'Generate' button to select a new patient randomly."),
+                        html.P("🏥 Explore Patient Information: Review the patient's features and values in the patient information section."),
+                        html.P("🏥 Analyze Prediction Results: Examine the soft predictions table to understand the probabilities for each class."),
+                        html.P("🏥 Understand Feature Importance: Study the feature table and SHAP plot to identify the important features and their impact on the prediction."),
+                        html.P("🏥 Get Prediction Recommendation: Read the prediction label to determine the model's recommendation for the patient."),
                     ])
                 ],
                 target="popover-target",
@@ -74,40 +88,42 @@ app.layout = dbc.Container([
         ], style={'textAlign': 'right'})
     ]),
 
+    # Prediction on Individual Patient section
     dbc.Row([
-            html.Div(
-                children=[
-                    html.H3("Prediction on Individual Patient",
-                            style={"background": color1, "color": title_color,
+        html.Div(
+            children=[
+                html.H3("Prediction on Individual Patient",
+                        style={"background": color1, "color": title_color,
                                 'textAlign': 'center', 'border-radius': border_radius, "width": "100%"}),
 
-                    html.Div([
-                        html.Iframe(
-                            id="patient-prediction",
-                            style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "25%",
-                                "margin-top": "20px", "text-align": "center"}
-                        )
-                    ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                            "width": "100%", "height": "150px"}),
-
-                    html.Div(
-                        id="prediction-label",
-                        children=[
-                            html.Div(
-                                id="prediction-text",
-                                style={'border': '0', 'width': '100%', 'height': '40px', "margin-left": "100px",
-                                "margin-top": "100px", "text-align": "center"}
-                            )
-                        ],
-                        style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                            "width": "100%", "height": "35px", "margin-top": "20px"}
+                html.Div([
+                    html.Iframe(
+                        id="patient-prediction",
+                        style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "25%",
+                               "margin-top": "20px", "text-align": "center"}
                     )
-                ],
-                className="panel",
-            )
-        ], style={"margin-top": "20px", "text-align": "center"}),
+                ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
+                           "width": "100%", "height": "150px"}),
 
-    dbc.Row([    
+                html.Div(
+                    id="prediction-label",
+                    children=[
+                        html.Div(
+                            id="prediction-text",
+                            style={'border': '0', 'width': '100%', 'height': '40px', "margin-left": "100px",
+                                   "margin-top": "100px", "text-align": "center"}
+                        )
+                    ],
+                    style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
+                           "width": "100%", "height": "35px", "margin-top": "20px"}
+                )
+            ],
+            className="panel",
+        )
+    ], style={"margin-top": "20px", "text-align": "center"}),
+
+    # Patient Information and Feature Description section
+    dbc.Row([
         dbc.Col(
             html.Div(
                 children=[
@@ -160,6 +176,7 @@ app.layout = dbc.Container([
             )
         )]),
 
+    # Feature Importances section
     dbc.Row([
         dbc.Col(
             html.Div(
@@ -179,9 +196,11 @@ app.layout = dbc.Container([
                                "width": "100%", "height": "190px"}),
                 ],
                 className="panel",
-)
+            )
         )
     ], style={"margin-top": "20px"}),
+
+    # Generate Data for New Patient button
     dbc.Row(
         html.Div(
             [
@@ -193,7 +212,6 @@ app.layout = dbc.Container([
                         "backgroundColor": "#234075",
                         "marginTop": "20px",
                         "color": "#e3a82b",
-                        # "fontWeight": "bold",
                         "fontSize": "20px"
                     }
                 )
@@ -203,8 +221,7 @@ app.layout = dbc.Container([
     ),
 ],
     className="mt-4",
-    
-    )
+)
 
 @app.callback(Output("patient-table", "srcDoc"),
               Output('patient-prediction', "srcDoc"),
@@ -214,15 +231,30 @@ app.layout = dbc.Container([
               Input("generate-button", "n_clicks"))
 
 def update_patient(n_clicks):
+    """
+    Callback function to update the patient information, prediction results, feature table, SHAP plot, and prediction label.
+
+    Parameters:
+    - n_clicks (int): The number of times the "generate" button is clicked.
+
+    Returns:
+    - Tuple of strings: Updated patient table HTML, prediction HTML, feature table HTML, SHAP plot HTML, and prediction label.
+
+    """
     
     if n_clicks is None:
+        # Return empty strings if generate button is not clicked
         return "", "", "", "", ""
     else:
+        # Generate a random number between 0 and 20 to select a patient from the test set
         num = random.randint(0, 20)
         
+        # Get the actual features and values of the selected patient
         choosen_actual = X_test.iloc[[num]].T.reset_index()
         choosen_actual.columns = ['Feature Name', 'Value']
         choosen_actual.index = choosen_actual.index + 1
+        
+        # Style the actual patient table
         styled_df = choosen_actual.style \
             .set_properties(**{'text-align': 'center', 'font-size': '14px', 'width': '290px', 'height': '7px',
                                'font-family': 'Helvetica'}) \
@@ -235,15 +267,19 @@ def update_patient(n_clicks):
                                               ('margin-bottom', '10px')]}
         ])
 
+        # Get the encoded features of the selected patient
         choosen_instance = X_test_enc.loc[[num]]
+        
+        # Predict the probability of each class using the random forest classifier
         probability = pipe_rf.named_steps['randomforestclassifier'].predict_proba(choosen_instance)
         probability_red = probability[0][0] * 100
         probability_green = probability[0][1] * 100
-        prediction = pipe_rf.named_steps['randomforestclassifier'].classes_[np.argmax(probability)]
 
+        # Define the threshold for prediction labels
         X = 50.0
 
         if probability_red >= X:
+            # Generate the prediction label for high probability of red class
             prediction_label = html.Div(
                 [
                     "Physician is >= {:.2f}% likely to classify this individual as ".format(probability_red),
@@ -253,6 +289,7 @@ def update_patient(n_clicks):
                 style={"font-size": "larger"}
             )
         elif probability_green >= X:
+            # Generate the prediction label for high probability of green class
             prediction_label = html.Div(
                 [
                     "Physician is >= {:.2f}% likely to classify this individual as ".format(probability_green),
@@ -262,11 +299,13 @@ def update_patient(n_clicks):
                 style={"font-size": "larger"}
             )
         else:
+            # Generate the prediction label when no recommendation is provided
             prediction_label = html.Div(
                 "The model is unable to predict with >=50% confidence, therefore no recommendation has been provided.",
                 style={"font-size": "larger"}
             )
 
+        # Generate the soft predictions table
         out = pd.DataFrame(probability, columns=['class A', 'class B'])
         out = out.style \
             .set_properties(**{'text-align': 'center', 'font-size': '14px', 'width': '300px', 'height': '7px',
@@ -283,6 +322,7 @@ def update_patient(n_clicks):
         out = out.hide()
         out = out.format('{:.3f}')
 
+        # Format and style the feature table
         feature_data.reset_index(drop=True, inplace=True)
         feature_data.index = feature_data.index + 1
         feature_table = feature_data.style \
@@ -299,6 +339,7 @@ def update_patient(n_clicks):
             {'selector': '.col1', 'props': [('width', '60%')]},  # Adjust the width of the second column
         ])
 
+        # Generate the SHAP plot using the TreeExplainer
         rf_explainer = shap.TreeExplainer(pipe_rf.named_steps['randomforestclassifier'])
         shap_values = rf_explainer.shap_values(choosen_instance)
         force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False, plot_cmap = [positive_color, negative_color])
