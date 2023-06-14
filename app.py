@@ -4,13 +4,15 @@ import joblib
 import shap
 import random
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output
-from dash import Dash, html, dcc
 import plotly.graph_objects as go
 import base64
 import matplotlib.pyplot as plt
 import io
 import plotly.io as pio
+import explainerdashboard
+from dash.dependencies import Input, Output
+from dash import Dash, html, dcc
+
 # Load data and perform some data pre-processing
 
 X_test = pd.read_csv("data/x_test.csv")
@@ -18,7 +20,8 @@ X_test_enc = pd.read_csv("data/x_test_enc.csv")
 feature_data = pd.read_csv("data/feature_data.csv")
 pipe_rf = joblib.load("src/models/rf.joblib")
 
-
+positive_color = "#00FF00"
+negative_color = "#FF0000"
 transparent = "#00000000"  # for transparent backgrounds
 color1 = "#234075"  # blue
 color2 = "#234075"  # border colors
@@ -203,7 +206,6 @@ app.layout = dbc.Container([
     
     )
 
-
 @app.callback(Output("patient-table", "srcDoc"),
               Output('patient-prediction', "srcDoc"),
               Output("feature-table", "srcDoc"),
@@ -212,11 +214,12 @@ app.layout = dbc.Container([
               Input("generate-button", "n_clicks"))
 
 def update_patient(n_clicks):
-    num=5
     
     if n_clicks is None:
         return "", "", "", "", ""
     else:
+        num = random.randint(0, 20)
+        
         choosen_actual = X_test.iloc[[num]].T.reset_index()
         choosen_actual.columns = ['Feature Name', 'Value']
         choosen_actual.index = choosen_actual.index + 1
@@ -298,7 +301,7 @@ def update_patient(n_clicks):
 
         rf_explainer = shap.TreeExplainer(pipe_rf.named_steps['randomforestclassifier'])
         shap_values = rf_explainer.shap_values(choosen_instance)
-        force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False)
+        force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False, plot_cmap = [positive_color, negative_color])
         shap_html = f"<head>{shap.getjs()}</head><body><div style='color: #234075; font-family: Helvetica; font-size: 14px;'>{force_plot.html()}</div></body>"
 
         #phy_decision = X_test.iloc[[num]]['Physician.Disposition'].values[0]

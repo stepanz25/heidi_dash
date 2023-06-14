@@ -1,120 +1,123 @@
 import numpy as np
 import pandas as pd
-import joblib
-import shap
-import random
-import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output
-from dash import Dash, html, dcc
+import xgboost as xgb
+import dash
 import plotly.graph_objects as go
-import base64
-import matplotlib.pyplot as plt
-import io
-import plotly.io as pio
-# Load data and perform some data pre-processing
-
-X_test = pd.read_csv("data/x_test.csv")
-X_test_enc = pd.read_csv("data/x_test_enc.csv")
-feature_data = pd.read_csv("data/feature_data.csv")
-pipe_rf = joblib.load("src/models/rf.joblib")
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+import dash_bootstrap_components as dbc
+from dash import Dash, html, dcc
+import eli5
+import shap
+from dash.dependencies import Input, Output
 
 
-transparent = "#00000000"  # for transparent backgrounds
-color1 = "#234075"  # blue
-color2 = "#234075"  # border colors
-plot_text_color = "#234075"  # plot axis and label color
-title_color = "#e3a82b"  # general title and text color
-border_radius = "5px"  # rounded corner radius
-border_width = "3px"  # border width
+shap.initjs()
+# Load the Iris dataset
+data = load_iris()
+X = data.data
+y = data.target
 
-my_external_stylesheets = [dbc.themes.YETI, 'src/assets/theme.css']
+# Split the data into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-app = Dash(__name__, external_stylesheets=my_external_stylesheets,
-           title="HEiDi Classifier")
+# Train an XGBoost classifier
+model = xgb.XGBClassifier()
+model.fit(X_train, y_train)
 
-server = app.server
+# Make predictions on the test set
+y_pred = model.predict(X_test)
 
-# Define layout
+# Calculate performance metrics
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average='macro')
+recall = recall_score(y_test, y_pred, average='macro')
+f1 = f1_score(y_test, y_pred, average='macro')
+confusion_mat = confusion_matrix(y_test, y_pred)
+
+# Calculate percentages for each intersection
+confusion_mat_percent = confusion_mat / confusion_mat.astype(float).sum(axis=1, keepdims=True)
+
+# Convert confusion matrix to string format
+confusion_mat_text = confusion_mat.astype(str)
+
+# Calculate SHAP values
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_train)
+
+# Create the SHAP summary plot
+#shap_summary_plot = shap.summary_plot(shap_values[0], X_test, plot_type='bar', class_names=data.target_names)
+
+# Create the Dash app
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
+
+# Obtain feature importances
+feature_importances = eli5.format_as_dataframe(eli5.explain_weights(model, feature_names=data.feature_names))
+
+# Define the layout
 app.layout = dbc.Container([
-    dbc.Row([dbc.Col([
-            dcc.Graph(id='fig')
-        ], width={'size': 3, 'offset': 0})
-    ], className='mb-4 mt-4'),
-    dbc.Row(
-        html.Div(
-            [
-                dbc.Button(
-                    "Generate Data for New Patient",
-                    color="primary",
-                    id="generate-button",
-                    style={
-                        "backgroundColor": "#234075",
-                        "marginTop": "20px",
-                        "color": "#e3a82b",
-                        # "fontWeight": "bold",
-                        "fontSize": "20px"
-                    }
-                )
-            ],
-            className="d-grid gap-2 col-6 mx-auto",
-        )
-    )
-    
-   ])
+    html.H1("XGBoost Classification Dashboard", className="text-center mt-4 mb-4"),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("Model Performance Metrics"),
+                dbc.CardBody([
+                    dbc.Table([
+                        html.Tr([html.Th('Accuracy'), html.Td(f"{accuracy:.2f}")]),
+                        html.Tr([html.Th('Precision'), html.Td(f"{precision:.2f}")]),
+                        html.Tr([html.Th('Recall'), html.Td(f"{recall:.2f}")]),
+                        html.Tr([html.Th('F1-Score'), html.Td(f"{f1:.2f}")])
+                    ], className="table table-striped text-center", bordered=True, color="light")
+                ], style={'border': '0', 'width': '100%', 'height': '400px', "margin-left": "0px",
+                                "margin-top": "100px", "text-align": "center"})
+            ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '550px', "margin-left": "0px",
+                                "margin-top": "0px", "text-align": "center"})
+        ], width=6),
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("Confusion Matrix"),
+                dbc.CardBody([
+                    dcc.Graph(
+                        figure=go.Figure(
+                            data=[
+                                go.Heatmap(
+                                    z=confusion_mat_percent,
+                                    x=data.target_names,
+                                    y=data.target_names,
+                                    text=confusion_mat_text,
+                                    hovertemplate='True label: %{y}<br>Predicted label: %{x}<br>Count: %{text}',
+                                    colorbar=dict(title=dict(text="")),
+                                )
+                            ],
+                            layout=go.Layout(
+                                xaxis=dict(title="Predicted label"),
+                                yaxis=dict(title="True label"),
+                            )
+                        ),
+                        config={'displayModeBar': False}
+                    )
+                ], style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "0px",
+                                "margin-top": "0px", "text-align": "center"})
+            ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '550px', "margin-left": "0px",
+                                "margin-top": "0px", "text-align": "center"})
+        ], width=6)
+    ]),
+    html.Div(className="mt-4"),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("Feature Importances"),
+                dbc.CardBody([
+                    dbc.Table.from_dataframe(feature_importances, striped=True, bordered=True, hover=True)
+                ])
+            ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
+                                "margin-top": "0px", "text-align": "center"})
+        ], width=6)
+    ])
+], className="p-4")
 
-
-@app.callback(Output("fig", "figure"),
-              Input("generate-button", "n_clicks"))
-
-def update_patient(n_clicks):
-    if n_clicks is None:
-        return go.Figure()
-    else:
-        data = np.array([[0.97, 0.03]])
-
-        labels = ['Class A', 'Class B']
-        colors = ['red', 'green']
-
-        fig = go.Figure()
-
-        fig.add_trace(go.Bar(
-            y=[0],
-            x=data[0],
-            orientation='h',
-            marker=dict(color=colors),
-            text=[f'{val:.2f}' for val in data[0]],
-            textposition='auto',
-            textfont=dict(color='white', size=20),
-            name=labels[0]
-        ))
-
-        fig.add_trace(go.Bar(
-            y=[0],
-            x=[1 - data[0][0]],
-            orientation='h',
-            marker=dict(color=colors[::-1]),
-            text=[f'{val:.2f}' for val in [1 - data[0][0]]],
-            textposition='auto',
-            textfont=dict(color='white', size=20),
-            name=labels[1]
-        ))
-
-        fig.update_layout(
-            barmode='stack',
-            yaxis=dict(showticklabels=False),
-            xaxis=dict(
-                tickvals=np.arange(0, 1.1, 0.1),
-                title='Probability'
-            ),
-            title='Prediction Probabilities',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-
-        # Convert the plot to HTML
-        #patient_pred = pio.to_html(fig)
-
-        return fig
-
-# Run app
+# Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8052)
+    app.run_server(debug=True, port=8060)
+    
