@@ -1,75 +1,47 @@
-import numpy as np
-import pandas as pd
-import xgboost as xgb
 import dash
-import plotly.graph_objects as go
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, roc_auc_score
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
-import dash_bootstrap_components as dbc
 from dash import Dash, html, dcc
-import eli5
-import shap
+import plotly.graph_objects as go
 from dash.dependencies import Input, Output
-from dash import Dash, html, dash_table, dcc, callback, Output, Input
-import pandas as pd
-import plotly.express as px
-import dash_bootstrap_components as dbc
+import base64
 
-
-# Load the Iris dataset
-data = load_iris()
-X = data.data
-y = data.target
-
-# Split the data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Train an XGBoost classifier
-model = xgb.XGBClassifier()
-model.fit(X_train, y_train)
-
-# Make predictions on the test set
-y_pred = model.predict(X_test)
-
-
-# Calculate SHAP values
-explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X_train)
-
-# Create the SHAP summary plot
-#shap_summary_plot = shap.summary_plot(shap_values[0], X_test, plot_type='bar', class_names=data.target_names)
+# Generate the plot and save it as an image
+def generate_plot(option):
+    fig = go.Figure(data=go.Scatter(x=[1, 2, 3], y=[4, option, 2]))
+    fig.update_layout(title="Plot", xaxis_title="X", yaxis_title="Y")
+    image_filename = "plot.png"
+    fig.write_image(image_filename)
+    return image_filename
 
 # Create the Dash app
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
+app = dash.Dash(__name__)
 
-# App layout
-app.layout = dbc.Container([
+# Define the layout
+app.layout = html.Div([
+    html.H1("Plot as Image with Dropdown"),
+    dcc.Dropdown(
+        id="dropdown",
+        options=[
+            {"label": "Option 1", "value": 1},
+            {"label": "Option 2", "value": 2},
+            {"label": "Option 3", "value": 3}
+        ],
+        value=2
+    ),
+    html.Div(id="plot-container")
+])
 
-    dbc.Row([
-        dbc.RadioItems(options=[{"label": x, "value": x} for x in [0, 1, 2]],
-                       value=0,
-                       inline=True,
-                       id='radio-buttons-final')
-    ]),
+# Define the callback to update the plot
+@app.callback(Output("plot-container", "children"), [Input("dropdown", "value")])
+def update_plot(option):
+    image_filename = generate_plot(option)
 
-    dbc.Row([
-        dbc.Col([
-            dcc.Graph( id='my-first-graph-final')
-        ], width=6),
-    ]),
+    # Read the image as base64
+    with open(image_filename, "rb") as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
 
-], fluid=True)
-
-# Add controls to build the interaction
-@app.callback(
-    Output('my-first-graph-final', 'figure'),
-    Input('radio-buttons-final', 'value')
-)
-def update_graph(col_chosen):
-    fig = shap.summary_plot(shap_values[col_chosen], X_train, plot_type="violin")
-    return fig
+    # Display the image
+    return html.Img(src="data:image/png;base64,{}".format(encoded_image))
 
 # Run the app
-if __name__ == '__main__':
-    app.run_server(debug=True, port=8070)
+if __name__ == "__main__":
+    app.run_server(debug=True, port=8200)

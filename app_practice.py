@@ -11,9 +11,20 @@ from dash import Dash, html, dcc
 import eli5
 import shap
 from dash.dependencies import Input, Output
+import base64
+import matplotlib.pyplot as plt
+import io
 
+def sum_shap(feature_index):
+    fig, ax = plt.subplots()
+    shap.summary_plot(shap_values[feature_index], X_train, show=False)
 
-shap.initjs()
+    image_filename = "plot.png"
+    plt.savefig(image_filename)
+    plt.close(fig)
+
+    return image_filename
+
 # Load the Iris dataset
 data = load_iris()
 X = data.data
@@ -46,14 +57,11 @@ confusion_mat_text = confusion_mat.astype(str)
 explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(X_train)
 
-# Create the SHAP summary plot
-#shap_summary_plot = shap.summary_plot(shap_values[0], X_test, plot_type='bar', class_names=data.target_names)
+# Obtain feature importances
+feature_importances = eli5.format_as_dataframe(eli5.explain_weights(model, feature_names=data.feature_names))
 
 # Create the Dash app
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
-
-# Obtain feature importances
-feature_importances = eli5.format_as_dataframe(eli5.explain_weights(model, feature_names=data.feature_names))
 
 # Define the layout
 app.layout = dbc.Container([
@@ -113,11 +121,41 @@ app.layout = dbc.Container([
                 ])
             ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
                                 "margin-top": "0px", "text-align": "center"})
+        ], width=6),
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("SHAP Values"),
+                dbc.CardBody([
+                    dcc.Dropdown(
+                        id="dropdown",
+                        options=[
+                            {"label": "Option 0", "value": 0},
+                            {"label": "Option 1", "value": 1},
+                            {"label": "Option 2", "value": 2}
+                        ],
+                        value=2
+                    ),
+                    html.Div(id="plot-container"),
+                ])
+            ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
+                                "margin-top": "0px", "text-align": "center"})
         ], width=6)
     ])
 ], className="p-4")
 
+# Define the callback function
+@app.callback(Output("plot-container", "children"), [Input("dropdown", "value")])
+
+def update_shap_plot(feature_index):
+    # Calculate SHAP values for the selected feature
+    summary_plot = sum_shap(feature_index)
+    
+    with open(summary_plot, "rb") as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
+
+    # Display the image
+    return html.Img(src="data:image/png;base64,{}".format(encoded_image), style={'height': '250px', 'width': '100%', "margin-top": "60px"})
+
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True, port=8060)
-    
