@@ -12,10 +12,18 @@ import eli5
 import shap
 from dash.dependencies import Input, Output
 import base64
-from shap_violin import plotly_shap_violin_plot
+
+
+
+#from shap_violin import plotly_shap_violin_plot
 from shap_dependance import plotly_dependence_plot
 from shap_scatter import plotly_shap_scatter_plot
+from confusion_matrix import plot_confusion_matrix
 
+def create_confusion_matrix(test, pred):
+    
+    fig = plot_confusion_matrix(test=test, pred=pred)
+    return fig
 
 def create_shap_plot(feature_index):
     df = pd.DataFrame(X_test, columns=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"])
@@ -32,7 +40,6 @@ def create_shap_violin_plot(feature_index):
 
     fig = plotly_shap_scatter_plot(df, shap_values_df=shap_df)
     return fig
-
 
 # Load the Iris dataset
 data = load_iris()
@@ -144,6 +151,36 @@ app.layout = dbc.Container([
                         ],
                         value=2
                     ),
+                    html.Div(dcc.Graph(id='confusion_matrix')),
+                ])
+            ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
+                                        "margin-top": "0px", "text-align": "center"})
+        ], width=6)
+    ]),
+    html.Div(className="mt-4"),
+    dbc.Row([
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("Feature Importances"),
+                dbc.CardBody([
+                    dbc.Table.from_dataframe(feature_importances, striped=True, bordered=True, hover=True)
+                ])
+            ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
+                                        "margin-top": "0px", "text-align": "center"})
+        ], width=6),
+        dbc.Col([
+            dbc.Card([
+                dbc.CardHeader("SHAP Values"),
+                dbc.CardBody([
+                    dcc.Dropdown(
+                        id="dropdown",
+                        options=[
+                            {"label": "Option 0", "value": 0},
+                            {"label": "Option 1", "value": 1},
+                            {"label": "Option 2", "value": 2}
+                        ],
+                        value=2
+                    ),
                     html.Div(dcc.Graph(id='plot-figure')),
                 ])
             ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
@@ -154,12 +191,16 @@ app.layout = dbc.Container([
 
 
 # Define the callback function
-@app.callback(Output("plot-figure", "figure"), [Input("dropdown", "value")])
+@app.callback(Output("plot-figure", "figure"),
+              Output("confusion_matrix", "figure"),
+              Input("dropdown", "value")
+)
+
 def update_shap_plot(feature_index):
     # Calculate SHAP values for the selected feature
-    summary_plot = create_shap_plot(feature_index)
-
-    return summary_plot
+    summary_plot = create_shap_violin_plot(feature_index)
+    confusion_matrix = plot_confusion_matrix(y_test, y_pred)
+    return summary_plot, confusion_matrix
 
 
 # Run the app
