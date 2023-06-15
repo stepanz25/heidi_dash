@@ -12,18 +12,27 @@ import eli5
 import shap
 from dash.dependencies import Input, Output
 import base64
-import matplotlib.pyplot as plt
-import io
+from shap_violin import plotly_shap_violin_plot
+from shap_dependance import plotly_dependence_plot
+from shap_scatter import plotly_shap_scatter_plot
 
-def sum_shap(feature_index):
-    fig, ax = plt.subplots()
-    shap.summary_plot(shap_values[feature_index], X_train, show=False)
 
-    image_filename = "plot.png"
-    plt.savefig(image_filename)
-    plt.close(fig)
+def create_shap_plot(feature_index):
+    df = pd.DataFrame(X_test, columns=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"])
+    shap_df = pd.DataFrame(shap_values[feature_index])[1].values
+    fig = plotly_dependence_plot(df['SepalWidthCm'], shap_values=shap_df)
+    return fig
 
-    return image_filename
+
+def create_shap_violin_plot(feature_index):
+    df = pd.DataFrame(X_test,
+                      columns=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"])
+    shap_df = pd.DataFrame(shap_values[feature_index],
+                           columns=["SepalLengthCm", "SepalWidthCm", "PetalLengthCm", "PetalWidthCm"])
+
+    fig = plotly_shap_scatter_plot(df, shap_values_df=shap_df)
+    return fig
+
 
 # Load the Iris dataset
 data = load_iris()
@@ -55,7 +64,7 @@ confusion_mat_text = confusion_mat.astype(str)
 
 # Calculate SHAP values
 explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(X_train)
+shap_values = explainer.shap_values(X_test)
 
 # Obtain feature importances
 feature_importances = eli5.format_as_dataframe(eli5.explain_weights(model, feature_names=data.feature_names))
@@ -78,9 +87,9 @@ app.layout = dbc.Container([
                         html.Tr([html.Th('F1-Score'), html.Td(f"{f1:.2f}")])
                     ], className="table table-striped text-center", bordered=True, color="light")
                 ], style={'border': '0', 'width': '100%', 'height': '400px', "margin-left": "0px",
-                                "margin-top": "100px", "text-align": "center"})
+                          "margin-top": "100px", "text-align": "center"})
             ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '550px', "margin-left": "0px",
-                                "margin-top": "0px", "text-align": "center"})
+                                        "margin-top": "0px", "text-align": "center"})
         ], width=6),
         dbc.Col([
             dbc.Card([
@@ -106,9 +115,9 @@ app.layout = dbc.Container([
                         config={'displayModeBar': False}
                     )
                 ], style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "0px",
-                                "margin-top": "0px", "text-align": "center"})
+                          "margin-top": "0px", "text-align": "center"})
             ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '550px', "margin-left": "0px",
-                                "margin-top": "0px", "text-align": "center"})
+                                        "margin-top": "0px", "text-align": "center"})
         ], width=6)
     ]),
     html.Div(className="mt-4"),
@@ -120,7 +129,7 @@ app.layout = dbc.Container([
                     dbc.Table.from_dataframe(feature_importances, striped=True, bordered=True, hover=True)
                 ])
             ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
-                                "margin-top": "0px", "text-align": "center"})
+                                        "margin-top": "0px", "text-align": "center"})
         ], width=6),
         dbc.Col([
             dbc.Card([
@@ -135,26 +144,23 @@ app.layout = dbc.Container([
                         ],
                         value=2
                     ),
-                    html.Div(id="plot-container"),
+                    html.Div(dcc.Graph(id='plot-figure')),
                 ])
             ], className="mb-4", style={'border': '1', 'width': '100%', 'height': '500px', "margin-left": "0px",
-                                "margin-top": "0px", "text-align": "center"})
+                                        "margin-top": "0px", "text-align": "center"})
         ], width=6)
     ])
 ], className="p-4")
 
-# Define the callback function
-@app.callback(Output("plot-container", "children"), [Input("dropdown", "value")])
 
+# Define the callback function
+@app.callback(Output("plot-figure", "figure"), [Input("dropdown", "value")])
 def update_shap_plot(feature_index):
     # Calculate SHAP values for the selected feature
-    summary_plot = sum_shap(feature_index)
-    
-    with open(summary_plot, "rb") as image_file:
-        encoded_image = base64.b64encode(image_file.read()).decode("utf-8")
+    summary_plot = create_shap_plot(feature_index)
 
-    # Display the image
-    return html.Img(src="data:image/png;base64,{}".format(encoded_image), style={'height': '250px', 'width': '100%', "margin-top": "60px"})
+    return summary_plot
+
 
 # Run the app
 if __name__ == '__main__':
