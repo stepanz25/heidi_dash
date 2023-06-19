@@ -24,7 +24,7 @@ def plotly_shap_scatter_plot(
     X,
     shap_values_df,
     display_columns=None,
-    title="Shap values",
+    title="Shap Values",
     idxs=None,
     highlight_index=None,
     na_fill=-999,
@@ -181,7 +181,7 @@ def plotly_shap_scatter_plot(
                         marker=dict(
                             size=5,
                             showscale=False,
-                            opacity=0.3,
+                            opacity=0.6,
                             color="grey",
                         ),
                         name="Other",
@@ -222,15 +222,15 @@ def plotly_shap_scatter_plot(
                 col=1,
             )
         fig.update_xaxes(
-            showgrid=False, zeroline=False, range=[min_shap, max_shap], row=i + 1, col=1
+            showgrid=True, zeroline=True, range=[min_shap, max_shap], row=i + 1, col=1
         )
         fig.update_yaxes(
-            showgrid=False, zeroline=False, showticklabels=False, row=i + 1, col=1
+            showgrid=True, zeroline=True, showticklabels=True, row=i + 1, col=1
         )
 
     fig.update_layout(
         title=title + "<br>",
-        height=100 + len(display_columns) * 50,
+        height=100 + len(display_columns) * 100,
         margin=go.layout.Margin(l=40, r=40, b=40, t=100, pad=4),
         hovermode="closest",
         plot_bgcolor="#fff",

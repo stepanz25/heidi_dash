@@ -159,7 +159,7 @@ def plotly_dependence_plot(
                 mode="markers",
                 text=text,
                 hoverinfo="text",
-                marker=dict(size=7, opacity=0.6),
+                marker=dict(size=7, opacity=0.9),
             )
         )
 
@@ -174,8 +174,8 @@ def plotly_dependence_plot(
         plot_bgcolor="#fff",
         showlegend=False,
         hovermode="closest",
-        xaxis=dict(title=col_name),
-        yaxis=dict(title=f"SHAP value ({units})" if units != "" else "SHAP value"),
+        xaxis=dict(title=col_name, showgrid=True, gridcolor="lightgray", showline=True, linewidth=1),  # Add showgrid=True for x-axis
+        yaxis=dict(title=f"SHAP value ({units})" if units != "" else "SHAP value", showgrid=True, gridcolor="lightgray", showline=True, linewidth=1),  # Add showgrid=True for y-axis
     )
 
     fig = go.Figure(data, layout)

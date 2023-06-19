@@ -14,7 +14,12 @@ import plotly.io as pio
 from dash.dependencies import Input, Output
 from dash import Dash, html, dcc
 
-# Load data and perform some data pre-processing
+# Using base64 encoding and decoding
+def b64_image(image_filename):
+    with open(image_filename, 'rb') as f:
+        image = f.read()
+    return 'data:image/png;base64,' + base64.b64encode(image).decode('utf-8')
+
 
 # Load the test dataset
 X_test = pd.read_csv("data/x_test.csv")
@@ -50,7 +55,7 @@ app.layout = dbc.Container([
 
     # Header section
     dbc.Row([
-        dbc.Col([html.Img(src="src/assets/logo1.jpg", height="150px")], style={"width": "25%"}),
+        dbc.Col([html.Img(src=b64_image("src/assets/logo1.jpg"), height="150px")], style={"width": "25%"}),
         dbc.Col([html.H1('Classifier Explainer: Predicting HEiDi Triage', className='text-center',
                          style={'color': '#234075', 'textAlign': 'center', "font-weight": "bold", "fontSize": 40,
                                 "margin-top": "80px"})], md=4, style={"color": "#234075", "width": "70%"}),
