@@ -13,7 +13,6 @@ import shap
 from dash.dependencies import Input, Output
 import base64
 import plotly.figure_factory as ff
-from metrics_by_class import generate_metrics_table
 import dash_table
 
 #from shap_violin import plotly_shap_violin_plot
@@ -22,6 +21,7 @@ from shap_scatter import plotly_shap_scatter_plot
 from confusion_matrix import plot_confusion_matrix
 from metrics_by_class import generate_metrics_table
 from importances import plotly_importances_plot
+from metrics_by_class import generate_metrics_table
 
 def generate_metrics_table_by_class(test, pred, class_index):
     """
