@@ -13,6 +13,7 @@ import plotly.io as pio
 from dash.dependencies import Input, Output
 from dash import Dash, html, dcc
 
+
 def generate_bar_chart(value1, value2, height=230, width=1250):
     """
     Generate a bar chart with two bars representing the given values.
@@ -70,18 +71,19 @@ def generate_bar_chart(value1, value2, height=230, width=1250):
         paper_bgcolor='rgba(0,0,0,0)',
         height=height,  # Set the height of the plot
         width=width,  # Set the width of the plot
-        title = {
-    'text': "Soft Probability Distribution",
-    'x': 0.5,
-    'y': 0.9,
-    'font': {
-        'size': 24,
-        'color': '#234075',
-        'family': 'Arial, sans-serif'
-    }}
+        title={
+            'text': "Soft Probability Distribution",
+            'x': 0.5,
+            'y': 0.9,
+            'font': {
+                'size': 24,
+                'color': '#234075',
+                'family': 'Arial, sans-serif'
+            }}
     )
 
     return fig
+
 
 def generate_horizontal_bar_chart(dataframe):
     """
@@ -120,6 +122,7 @@ def generate_horizontal_bar_chart(dataframe):
     # Show the plot
     return fig
 
+
 def b64_image(image_filename):
     """
     Convert an image file to base64 encoding.
@@ -133,6 +136,7 @@ def b64_image(image_filename):
     with open(image_filename, 'rb') as f:
         image = f.read()
     return 'data:image/png;base64,' + base64.b64encode(image).decode('utf-8')
+
 
 # Load the test dataset
 X_test = pd.read_csv("data/x_test.csv")
@@ -185,18 +189,27 @@ app.layout = dbc.Container([
                     dbc.PopoverBody([
                         html.P("This dashboard contains:"),
                         html.P("🏥 Patient Information: View the details of a randomly selected patient."),
-                        html.P("🏥 Prediction Results: See the soft predictions for the selected patient, indicating the probabilities for each class."),
-                        html.P("🏥 Feature Table: Explore the features and their corresponding values for the selected patient."),
-                        html.P("🏥 SHAP Plot: Visualize the SHAP values to understand the impact of each feature on the model's prediction."),
-                        html.P("🏥 Prediction Label: Get a recommendation based on the model's prediction for the selected patient."),
+                        html.P(
+                            "🏥 Prediction Results: See the soft predictions for the selected patient, indicating the probabilities for each class."),
+                        html.P(
+                            "🏥 Feature Table: Explore the features and their corresponding values for the selected patient."),
+                        html.P(
+                            "🏥 SHAP Plot: Visualize the SHAP values to understand the impact of each feature on the model's prediction."),
+                        html.P(
+                            "🏥 Prediction Label: Get a recommendation based on the model's prediction for the selected patient."),
                     ]),
                     dbc.PopoverHeader("You can do the following with this dashboard:"),
                     dbc.PopoverBody([
-                        html.P("🏥 Generate Random Patient: Click the 'Generate' button to select a new patient randomly."),
-                        html.P("🏥 Explore Patient Information: Review the patient's features and values in the patient information section."),
-                        html.P("🏥 Analyze Prediction Results: Examine the soft predictions table to understand the probabilities for each class."),
-                        html.P("🏥 Understand Feature Importance: Study the feature table and SHAP plot to identify the important features and their impact on the prediction."),
-                        html.P("🏥 Get Prediction Recommendation: Read the prediction label to determine the model's recommendation for the patient."),
+                        html.P(
+                            "🏥 Generate Random Patient: Click the 'Generate' button to select a new patient randomly."),
+                        html.P(
+                            "🏥 Explore Patient Information: Review the patient's features and values in the patient information section."),
+                        html.P(
+                            "🏥 Analyze Prediction Results: Examine the soft predictions table to understand the probabilities for each class."),
+                        html.P(
+                            "🏥 Understand Feature Importance: Study the feature table and SHAP plot to identify the important features and their impact on the prediction."),
+                        html.P(
+                            "🏥 Get Prediction Recommendation: Read the prediction label to determine the model's recommendation for the patient."),
                     ])
                 ],
                 target="popover-target",
@@ -208,53 +221,52 @@ app.layout = dbc.Container([
 
     # Prediction on Individual Patient section
     dbc.Row([
-    html.Div(
-        children=[
-            html.H3("Prediction on Individual Patient",
-                    style={"background": color1, "color": title_color,
-                            'textAlign': 'center', 'border-radius': border_radius, "width": "100%"}),
+        html.Div(
+            children=[
+                html.H3("Prediction on Individual Patient",
+                        style={"background": color1, "color": title_color,
+                               'textAlign': 'center', 'border-radius': border_radius, "width": "100%"}),
 
-            html.Div([
-                html.Iframe(
-                    id="patient-prediction",
-                    style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "25%",
-                           "margin-top": "20px", "text-align": "center"}
-                )
-            ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                       "width": "100%", "height": "150px", "margin-bottom": "20px"}),
-
-            html.Div([
-                html.Iframe(
-                    id="soft_prob_bar",
-                    style={
-                        "border-width": "1",
-                        "width": "100%",
-                        "height": "550px",
-                        "top": "100%",
-                        "left": "0%",
-                        "margin-top": "0px"  # Adjust the margin-top value to create space
-                    },
-                ),
-            ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                      "height": "200px"}),
-
-            html.Div(
-                id="prediction-label",
-                children=[
-                    html.Div(
-                        id="prediction-text",
-                        style={'border': '0', 'width': '100%', 'height': '40px', "margin-left": "100px",
-                               "margin-top": "100px", "text-align": "center"}
+                html.Div([
+                    html.Iframe(
+                        id="patient-prediction",
+                        style={'border': '0', 'width': '100%', 'height': '500px', "margin-left": "25%",
+                               "margin-top": "20px", "text-align": "center"}
                     )
-                ],
-                style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
-                       "width": "100%", "height": "35px", "margin-top": "20px"}
-            )
-        ],
-        className="panel",
-    )
-], style={"margin-top": "20px", "text-align": "center"}),
+                ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
+                          "width": "100%", "height": "150px", "margin-bottom": "20px"}),
 
+                html.Div([
+                    html.Iframe(
+                        id="soft_prob_bar",
+                        style={
+                            "border-width": "1",
+                            "width": "100%",
+                            "height": "550px",
+                            "top": "100%",
+                            "left": "0%",
+                            "margin-top": "0px"  # Adjust the margin-top value to create space
+                        },
+                    ),
+                ], style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
+                          "height": "200px"}),
+
+                html.Div(
+                    id="prediction-label",
+                    children=[
+                        html.Div(
+                            id="prediction-text",
+                            style={'border': '0', 'width': '100%', 'height': '40px', "margin-left": "100px",
+                                   "margin-top": "100px", "text-align": "center"}
+                        )
+                    ],
+                    style={"border": f"{border_width} solid {color2}", 'border-radius': border_radius,
+                           "width": "100%", "height": "35px", "margin-top": "20px"}
+                )
+            ],
+            className="panel",
+        )
+    ], style={"margin-top": "20px", "text-align": "center"}),
 
     # Patient Information and Feature Description section
     dbc.Row([
@@ -409,6 +421,7 @@ app.layout = dbc.Container([
     className="mt-4",
 )
 
+
 @app.callback(Output("patient-table", "srcDoc"),
               Output('patient-prediction', "srcDoc"),
               Output("feature-table", "srcDoc"),
@@ -418,7 +431,6 @@ app.layout = dbc.Container([
               Output("soft_prob_bar", "srcDoc"),
               Output("prediction-label", "children"),
               Input("generate-button", "n_clicks"))
-
 def update_patient(n_clicks):
     """
     Callback function to update the patient information, prediction results, feature table, SHAP plot, and prediction label.
@@ -430,19 +442,19 @@ def update_patient(n_clicks):
     - Tuple of strings: Updated patient table HTML, prediction HTML, feature table HTML, SHAP plot HTML, and prediction label.
 
     """
-    
+
     if n_clicks is None:
         # Return empty strings if generate button is not clicked
         return "", "", "", "", "", "", "", ""
     else:
         # Generate a random number between 0 and 20 to select a patient from the test set
         num = random.randint(0, 20)
-        
+
         # Get the actual features and values of the selected patient
         choosen_actual = X_test.iloc[[num]].T.reset_index()
         choosen_actual.columns = ['Feature Name', 'Value']
         choosen_actual.index = choosen_actual.index + 1
-        
+
         # Style the actual patient table
         styled_df = choosen_actual.style \
             .set_properties(**{'text-align': 'center', 'font-size': '14px', 'width': '290px', 'height': '7px',
@@ -458,7 +470,7 @@ def update_patient(n_clicks):
 
         # Get the encoded features of the selected patient
         choosen_instance = X_test_enc.loc[[num]]
-        
+
         # Predict the probability of each class using the random forest classifier
         probability = pipe_rf.named_steps['randomforestclassifier'].predict_proba(choosen_instance)
         probability_red = probability[0][0] * 100
@@ -484,7 +496,7 @@ def update_patient(n_clicks):
                     "Physician is >= {:.2f}% likely to classify this individual as ".format(probability_green),
                     html.Span("GREEN", style={"color": "green", "text-transform": "uppercase", "font-weight": "bold"}),
                     " - being safe to manage in the community."
-                ], 
+                ],
                 style={"font-size": "larger"}
             )
         else:
@@ -531,9 +543,10 @@ def update_patient(n_clicks):
         # Generate the SHAP plot using the TreeExplainer
         rf_explainer = shap.TreeExplainer(pipe_rf.named_steps['randomforestclassifier'])
         shap_values = rf_explainer.shap_values(choosen_instance)
-        force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False, plot_cmap = [positive_color, negative_color])
+        force_plot = shap.force_plot(rf_explainer.expected_value[1], shap_values[1], choosen_instance, matplotlib=False,
+                                     plot_cmap=[positive_color, negative_color])
         shap_html = f"<head>{shap.getjs()}</head><body><div style='color: #234075; font-family: Helvetica; font-size: 14px;'>{force_plot.html()}</div></body>"
-        
+
         shap_value_df = pd.DataFrame(data=np.abs(shap_values[1].T), columns=["SHAP Values"])
         shap_value_df['Feature Name'] = X_test_enc.columns.values
         shap_value_df = shap_value_df[["Feature Name", "SHAP Values"]].sort_values(by="SHAP Values", ascending=False)
@@ -555,7 +568,9 @@ def update_patient(n_clicks):
 
         soft_prob_bar = generate_bar_chart(probability_red, probability_green)
 
-        return styled_df.to_html(escape=False), out.to_html(), feature_table.to_html(), shap_html, shap_value_df.to_html(), top_shap_bar.to_html(), soft_prob_bar.to_html(), prediction_label
+        return styled_df.to_html(
+            escape=False), out.to_html(), feature_table.to_html(), shap_html, shap_value_df.to_html(), top_shap_bar.to_html(), soft_prob_bar.to_html(), prediction_label
+
 
 # Run app
 if __name__ == '__main__':
