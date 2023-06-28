@@ -19,6 +19,25 @@ triage prediction with interactive capabilities that allow them to study the acc
 Engineering an app to help nurses to make a triage decision may have a significant impact on patients as well as medical
 system overall.
 
+## Data Pipeline
+
+The data pipeline created during our analysis is shown below. The folders marked with '00' are the initial setup which create the necessary files to run the analysis.
+
+Following this, we have the order of the pipeline as:
+- 01-eda
+- 02-preprocessing
+- 03-models
+
+![image](screenshots/VM_repo.png)
+
+The README file present in the repository below is a step by step guide for the capstone partners to fully explore the teams analysis.
+
+The data pipeline also provides the foundations for further analyses which the partners can carry out however they wish.
+
+![image](screenshots/README.png)
+
+![image](screenshots/kanban_board.png)
+
 ## Installation
 
 If you would like to help contribute to the app, you can set up the system as follows:
