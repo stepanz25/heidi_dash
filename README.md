@@ -28,7 +28,7 @@ Following this, we have the order of the pipeline as:
 - 02-preprocessing
 - 03-models
 
-![image](screenshots/VM_repo.png)
+![image](screenshots/VM_Repo.png)
 
 The README file present in the repository below is a step by step guide for the capstone partners to fully explore the teams analysis.
 
