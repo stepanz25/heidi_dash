@@ -1,0 +1,1190 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
+    
+    
+      
+        <title>Predictive analytics to support HLBC 8-1-1 and HEiDi triage</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.26e3688c.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#predictive-analytics-to-support-hlbc-8-1-1-and-heidi-triage" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Predictive analytics to support HLBC 8-1-1 and HEiDi triage" class="md-header__button md-logo" aria-label="Predictive analytics to support HLBC 8-1-1 and HEiDi triage" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Predictive analytics to support HLBC 8-1-1 and HEiDi triage
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Project Documentation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="lime"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="." class="md-tabs__link md-tabs__link--active">
+      Project Documentation
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Predictive analytics to support HLBC 8-1-1 and HEiDi triage" class="md-nav__button md-logo" aria-label="Predictive analytics to support HLBC 8-1-1 and HEiDi triage" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Predictive analytics to support HLBC 8-1-1 and HEiDi triage
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Project Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        Project Documentation
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explanatory-data-analysis" class="md-nav__link">
+    Explanatory Data Analysis
+  </a>
+  
+    <nav class="md-nav" aria-label="Explanatory Data Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preview" class="md-nav__link">
+    Preview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-information" class="md-nav__link">
+    Data information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-description" class="md-nav__link">
+    Data Description
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-pattern-and-trends" class="md-nav__link">
+    Data Pattern and trends
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Pattern and trends">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#missing-values" class="md-nav__link">
+    Missing values
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-problem-of-heidi-triage" class="md-nav__link">
+    The Problem of HEiDi Triage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#class-imbalance" class="md-nav__link">
+    Class Imbalance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#correlation-between-features" class="md-nav__link">
+    Correlation between features
+  </a>
+  
+    <nav class="md-nav" aria-label="Correlation between features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#correlation-between-types-of-claims" class="md-nav__link">
+    Correlation between types of claims
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#methods-and-algorithms" class="md-nav__link">
+    Methods and Algorithms
+  </a>
+  
+    <nav class="md-nav" aria-label="Methods and Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithms" class="md-nav__link">
+    Algorithms
+  </a>
+  
+    <nav class="md-nav" aria-label="Algorithms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dummy-classifier" class="md-nav__link">
+    Dummy Classifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decision-tree-classifier" class="md-nav__link">
+    Decision Tree Classifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-forest" class="md-nav__link">
+    Random Forest
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logistic-regression" class="md-nav__link">
+    Logistic Regression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xgboost" class="md-nav__link">
+    XGBoost
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-analysis" class="md-nav__link">
+    Project Analysis
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scripts" class="md-nav__link">
+    Scripts
+  </a>
+  
+    <nav class="md-nav" aria-label="Scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing-script" class="md-nav__link">
+    Preprocessing Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#split-data-script" class="md-nav__link">
+    Split Data Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#din-decoder-script" class="md-nav__link">
+    DIN Decoder Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-label-binazer" class="md-nav__link">
+    Multi Label Binazer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column-heidi_visit-cleaning-script" class="md-nav__link">
+    Column Heidi_visit Cleaning Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preprocessing-heidi_visit-script" class="md-nav__link">
+    Preprocessing heidi_visit Script
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#icd-codes-decoder-script" class="md-nav__link">
+    ICD Codes Decoder Script
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imputation-techniques" class="md-nav__link">
+    Imputation Techniques
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropped-columns" class="md-nav__link">
+    Dropped Columns
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-results" class="md-nav__link">
+    Final Results
+  </a>
+  
+    <nav class="md-nav" aria-label="Final Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dashboard" class="md-nav__link">
+    Dashboard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-scope" class="md-nav__link">
+    Future Scope
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="predictive-analytics-to-support-hlbc-8-1-1-and-heidi-triage">Predictive analytics to support HLBC 8-1-1 and HEiDi triage</h1>
+<p><mark>Organization : UBC Digital Emergency Medecine</mark></p>
+<p><mark>Authors :  Flora Ouedraogo, Stepan Zaiatc, Tanmay Agarwal,  Waiel Tinwala</mark></p>
+<h2 id="introduction">Introduction</h2>
+<div style="text-align: justify;">
+
+The HealthLink BC 8-1-1 service includes HEiDi, a virtual support service with doctors. When people contact 8-1-1, they are connected with registered nurses who assess their condition based on professional judgment. If there's an emergency, patients receive virtual consultations with physicians through HEiDi on the same day. This has been successful in reducing visits to the Emergency Department. However, there is concern that some patients may be unnecessarily directed to the Emergency Department. 
+
+To tackle this issue, our project aims to develop a model that assists nurses in making well-informed triage decisions by utilizing data from HEiDi physicians. We will conduct a comprehensive analysis of the data, employing various techniques for processing, classifying, and predicting. 
+
+Our primary objective is to create an improved model that outperforms the current rule-based algorithm for triage. Additionally, we will develop a user-friendly Dash app that caters to both non-technical stakeholders, such as nurses, and more technical stakeholders, such as data scientists.
+</div>
+
+<h2 id="explanatory-data-analysis">Explanatory Data Analysis</h2>
+<h4 id="preview">Preview</h4>
+<p>To start off, we read in our data along with the data dictionaty both located in the data folder :</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>data = pd.read_csv(&#39;data/HEiDi-ML-data.csv&#39;, engine=&#39;python&#39;)
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>data = data[~datal&#39;simplified md disposition&#39;].isna()1
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>data dict = pd.read excel (&#39;data/HEiDi-ML-dictionary updated.xsx&#39;)
+</code></pre></div>
+<h4 id="data-information">Data information</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>data.info()
+</code></pre></div>
+<figure>
+<p><img alt="info result" src="pics/info.png" />
+  </p>
+<figcaption> Data Information.</figcaption>
+</figure>
+<p>Our dataframe is relatively large with 33,597 rows and 307 columns. It contains a mix of numerical and object columns, with
+a majority being numerical(float and integer) columns.</p>
+<h4 id="data-description">Data Description</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>data.describe()
+</code></pre></div>
+<figure>
+<p><img alt="info description" src="pics/describe.png" />
+  </p>
+<figcaption> Data Information.</figcaption>
+</figure>
+<p>As seen in the result above, the count of non-null values for several column is significantly lower than the total number of
+rows in our data. This indicates a lot of missing values in our data.</p>
+<h4 id="data-pattern-and-trends">Data Pattern and trends</h4>
+<div style="text-align: justify;">
+
+
+
+We started by studying the data to understand it better and find any noticeable patterns or trends. We looked at outliers and missing values and found that many variables had imbalances and missing values. Our analysis included 308 columns, which we divided into three main categories: Numeric, Binary, and Categorical.
+
+
+
+We run the following code to filter the different data types:
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>binary_col = []
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>number claims = []
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>numeric col = []
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>primary_keys = [&#39;CallID&#39;,&#39;PHN_e&#39; ,&#39;ENCOUNTER_ID&#39;]
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>for col in data.columns:
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    if re.search(&#39;n_claims.*&#39;, col):
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        number_claims.append(col)
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    elif len(data[col].unique()) &lt;= 3 and data[col].isna().any():
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        binary_col.append(col)
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    elif len(data[col].unique()) &gt; 2 and data[col].dtype != &#39;object&#39; and col not in primary_keys:
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        numeric_col.append(col)
+</code></pre></div>
+
+</div>
+
+<h5 id="missing-values">Missing values</h5>
+<div style="text-align: justify;">
+We discovered that a considerable number of columns, such as `NAVInformed` and `NSInformed`, contained missing data exceeding 95%. Consequently, we made the decision to exclude these columns due to their limited potential to offer valuable insights in our predictive analysis and the possibility of introducing unnecessary noise.
+</div>
+
+<figure>
+<p><img alt="missing data" src="pics/missing_values.png" />
+  </p>
+<figcaption> The plot shows a grid or a table with columns and rows. The color blue is used to represent the NA (Not
+Available) values or missing data. In total, there are over 20 columns with over 95% values missing in their corresponding rows. </figcaption>
+</figure>
+<div style="text-align: justify;">
+This image indicates that there is a widespread presence of missing values, represented by the blue color, across various columns in the dataset. This implies that a substantial amount of data is missing and requires further examination. As a result, we are currently in discussions with our Capstone Partner to understand the underlying reasons behind the missing data and decide on the necessary steps to resolve this issue.
+
+</div>
+
+<h5 id="the-problem-of-heidi-triage">The Problem of HEiDi Triage</h5>
+<div style="text-align: justify;">
+The existing system, known as the rule-based model, generates excessive false positives, leading to an unnecessary influx of people in the emergency department. The diagram presented illustrates the distribution of the target column, `simplified_md_disposition`, categorized according to the KBDisposition:
+</div>
+
+<figure>
+<p><img alt="KBDisposition" src="pics/KBDisposition.png" />
+  </p>
+<figcaption> Distribution of KBDisposition </figcaption>
+</figure>
+<h5 id="class-imbalance">Class Imbalance</h5>
+<div style="text-align: justify;">
+ We also discovered a class imbalance that resulted in the "try home treatment" category being underrepresented. We needed to address this class imbalance to prevent any potential biases in our model.
+</div>
+
+<figure>
+<p><img alt="Class Imbalance" src="pics/class_imbalance.png" />
+  </p>
+<figcaption> Distribution of simplified_md_disposition </figcaption>
+</figure>
+<h5 id="correlation-between-features">Correlation between features</h5>
+<h6 id="correlation-between-types-of-claims">Correlation between types of claims</h6>
+<figure>
+<p><img alt="Class Imbalance" src="pics/heatmap.png" />
+  </p>
+<figcaption> This plot illustrates the correlation heatmap that visualizes the relationship between the number of claims for
+various specialty types, such as "Radiology", "Respirology", and "Gastroenterology", recorded over different time
+periods (30-days, 90-days, 1-year).</figcaption>
+</figure>
+<div style="text-align: justify;">
+The correlation heatmap displayed above illustrates the connection between the number of claims across various specialty types and time periods. It is based on data from a health insurance dataset. The heatmap has the specialty types and time periods (30 days, 90 days, and one year) represented on the x and y axes respectively. Each cell in the heatmap represents the correlation coefficient, indicating the strength and direction of the relationship between two specialty types and their corresponding time periods. Upon analyzing the heatmap, it becomes evident that there is no notable correlation among the different features. This finding suggests that the data quality is satisfactory.
+</div>
+
+<figure>
+<p><img alt="KBDisposition" src="pics/nursing_cat.png" />
+  </p>
+<figcaption> The plot depicts the relationship between patients' medical conditions and the frequency of their visits to the
+emergency department (ED), as assessed by nurses. The "md_green" color indicates that patients can manage their
+medical condition at home without requiring an ED visit. In contrast, the "md_yellow" and "md_red" colors suggest
+that patients require ED visits, with the latter indicating more severe cases..</figcaption>
+</figure>
+<div style="text-align: justify;">
+Problems related to Gastro, Respiratory and Cardiovascular seem to have higher ER cases.
+However, patients also fall in the green category and have those problems as the leading cause as well. This
+shows that they are the most common illness out there.
+
+</div>
+
+<figure>
+<p><img alt="heatmap" src="pics/ethnoculture.png" />
+  </p>
+<figcaption> The plot above represents the diversity and representation of different ethnic groups present by the target  feature `simplified_md_disposition` in the data.</figcaption>
+</figure>
+<p><mark>The aforementioned plots were extracted during the exploratory data analysis (EDA) conducted on the dataset. The complete EDA can be accessed <a href="here">#EDA</a></mark></p>
+<h2 id="methods-and-algorithms">Methods and Algorithms</h2>
+<h3 id="methods">Methods</h3>
+<p>To develop a robust model that enhances nurse triaging, our project followed a structured data science research methodology, leading to key findings presented in the following sections. Our analysis began with an exploratory data analysis (EDA), a standard practice in data science projects, to gain a comprehensive understanding of the data and identify patterns and trends. The EDA findings guided us in eliminating redundant features and columns that did not contribute significantly to our predictions. Additionally, columns with more than 95% missing data were dropped to prevent noise introduction.</p>
+<p>During the EDA phase, we employed various visualization techniques to draw insights and make informed decisions on feature selection. These techniques included examining correlation heatmaps for columns such as the number of claims, using matrix plots to identify missing values, and using bar plots to explore relationships between different columns based on the target variable levels (<code>md_green</code>, <code>md_yellow</code>, <code>md_red</code>). 
+After conducting the EDA and consulting with experts, we proceeded to preprocess the data. This involved dropping a number of columns based on the insights gained from the EDA analysis and expert consultation. The data was then split into training and test sets, with an 80% training and 20% testing split. The partitioning was done in a balanced manner using a specific column called <code>PHN_e</code>.</p>
+<p>Several preprocessing steps were applied to various columns, including removing rows with missing values in the target class, filling in missing values with placeholders, converting string values into lists separated by commas, exploding columns such as <code>chronic disease</code> and <code>invoice_feature</code>, and extracting features such as the hour from the datetime feature. A notable preprocessing step was also performed on the <code>px_DIN</code> feature. Detailed information about all the preprocessing steps can be found <a href="here">#Scripts</a>.</p>
+<p>Following the preprocessing stage, we explored potential models for fitting based on expert consultation and literature review. The models we considered in our analysis included the <code>Dummy Classifier</code>, <code>Decision Tree Classifier</code>, <code>Random Forest</code>, <code>Logistic Regression</code>, and <code>XGBoost</code>. For detailed information on each of these models, please refer to the <a href="here">#algorithms</a>. </p>
+<p>After analyzing the performance of each model, we selected the best-performing model, referred to as the <a href="best-mode">model</a>, to build the dashboard for stakeholders. The results obtained from this model serve as the foundation for the dashboard, providing valuable insights for stakeholders involved in the triaging process.</p>
+<h3 id="algorithms">Algorithms</h3>
+<div style="text-align: justify;">
+In our quest to identify the best-performing model, we evaluated five different algorithms: [`Dummy Classifier`](dummy-classifier), [`Decision Tree Classifier`](#decision-tree-classifier), [`Logistic Regression`](#logistic-regression), [`Random Forest`](#random-forest) and [`XGBoost`](#xgboost). 
+We selected the Dummy Classifier algorithm due to its scalability and ability to handle sparse data, which was particularly relevant in our case given the presence of multiple categorical features with sparsity in our model. Similarly, we opted for the Logistic Regression algorithm, which shares similar advantages with the Dummy Classifier and offers the added benefit of interpretability for feature importance selection. Considering the simplicity and ease of implementation, we included the `Decision Tree Classifier` as a baseline model. However, we acknowledge the potential for overfitting with this algorithm. To mitigate overfitting concerns, we incorporated the `Random Forest` model, which utilizes an ensemble of multiple decision trees to reduce overfitting while maintaining predictive performance. Lastly, we explored the `XGBoost` model, leveraging its various advantages. These include higher predictive accuracy, built-in regularization (such as L1 and L2 regularization) to prevent overfitting, and the ability to correct errors at each iteration after constructing each tree. During training, `XGBoost` learns how to handle missing values at each split point, reducing bias in the model. By considering these five algorithms, we aimed to identify the model that best suits our specific requirements and maximizes predictive performance while addressing potential overfitting concerns.\
+</div>
+
+<div style="text-align: justify;">
+In our problem statement, we prioritized two performance metrics: Recall and F1 score, with Recall being of higher importance. Our primary focus was to ensure that the model performs better than the current rule-based algorithm, while minimizing the risk of under-triaging and ensuring the identification of actual patients who need to be sent to the Emergency Room (ER). Minimizing Type 2 errors (error of omission) was crucial to achieve better outcomes for our partner. We aimed to accurately identify and capture patients who require urgent care, thereby reducing the likelihood of missed cases. Recall, as a fundamental performance metric, played a significant role in evaluating the model's ability to correctly identify true positive cases. Although the precision of the model, indicated by Type 1 errors (false positives), was relatively less prioritized, it was still taken into consideration. In this context, having a conservative model that may occasionally classify patients incorrectly as needing ER attention was deemed acceptable. The overall objective was to strike a balance between correctly identifying patients who require urgent care and minimizing unnecessary visits to the ER. By focusing on Recall and considering the significance of both Type 1 and Type 2 errors, we aimed to develop a model that effectively prioritizes patient safety and improves the overall triaging process::
+</div>
+
+<h4 id="dummy-classifier">Dummy Classifier</h4>
+<h4 id="decision-tree-classifier">Decision Tree Classifier</h4>
+<h4 id="random-forest">Random Forest</h4>
+<h4 id="logistic-regression">Logistic Regression</h4>
+<h4 id="xgboost">XGBoost</h4>
+<h2 id="project-analysis">Project Analysis</h2>
+<h3 id="scripts">Scripts</h3>
+<h4 id="preprocessing-script">Preprocessing Script</h4>
+<p>To execute the preprocessing script <a href="#"><code>preprocessing4.py</code></a> , which includes all the preprocessing steps, run the following command: </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>python src/preprocessing4.py
+</code></pre></div>
+<p>Below is the detailed structure and explanation of the script:</p>
+<p><a href="#"><code>Load Dataset</code></a></p>
+<div style="text-align: justify;">
+This section of the script loads the raw dataset from a CSV file and removes rows containing missing values in the target column 
+</div>
+
+<p><a href="#"><code>Drop Unnecessary Columns</code></a></p>
+<div style="text-align: justify;">
+The script reads a file (`drop_columns.txt`) that contains a list of column names to be dropped. It drops the specified columns from the dataset. These are the columns that do not contribute in the prediction.
+</div>
+
+<p><a href="#"><code>Preprocess</code>chronic_disease<code>Feature</code></a> </p>
+<div style="text-align: justify;">
+The `chronic_disease` column contains grouped lists that needed to be expanded and concatenated. To achieve this, we first handled missing values in the column by filling them with a placeholder. Then, we split the strings in the column using commas as delimiters to create a list of individual strings. 
+Next, we applied the multilabel binarization technique to perform one-hot encoding on the `chronic_disease` feature. Subsequently, the original `chronic_disease` column was removed from the dataset, and the newly created one-hot encoded features were added. 
+It is important to highlight that in our approach, we assumed that missing data in the `chronic_disease` column indicated the absence of any chronic disease.
+</div>
+
+<p><a href="#"><code>Preprocess</code>n_claims_*<code>Features</code></a></p>
+<div style="text-align: justify;">
+The `n_claims_` column, similar to the `chronic_disease` column mentioned earlier, also consists of grouped lists that needed to be expanded. To accomplish this, we created a list of invoice features and extracted specialty types from the column names. 
+Specifically, we calculated the ratio between the data from the past one year and the past 30 days for each specialty. This was done by dividing the values in the 'n_claims_1yr_specialty' column by the corresponding values in the 'n_claims_30day_specialty' column. We identified a total of 194 columns that contained the term 'n_claims' in their names, and we extracted those columns. 
+By taking the ratio, we aimed to combine correlated features in the dataset, as we wanted to avoid having highly correlated features. To prevent division by zero errors, we ensured that the invoice data was incremented by 1 before performing the division. 
+Finally, we dropped the original invoice columns from the dataset and added the new ratio columns that were calculated based on the `n_claims_` data. 
+</div>
+
+<p><a href="#"><code>Extract Hour from</code>FinalDispositionAtLocal<code>Feature</code></a></p>
+<div style="text-align: justify;">
+We extracted the hour component from the `FinalDispositionAtLocal` datetime feature. Subsequently, we removed the original `FinalDispositionAtLocal` column from the dataset. 
+</div>
+
+<p><a href="#"><code>Convert</code>Id<code>Variables into Categoricals</code></a></p>
+<div style="text-align: justify;">
+Although the values in the dataset are numerical, they represent ID variables that hold categorical information. Therefore, we converted these numerical ID variables into categorical variables. 
+</div>
+
+<p><a href="#"><code>Preprocess</code>CallServiceTagged<code>Feature</code></a></p>
+<div style="text-align: justify;">
+Similar to the `chronic_disease` and `n_claims_ columns`, the `CallServiceTagged` column also requires expansion. To achieve this, we handled missing values in the `CallServiceTagged` column by replacing them with a placeholder value. Then, we split the strings in the column using the '|' delimiter to create a list of individual strings. 
+Afterwards, we applied the multilabel binarization technique to perform one-hot encoding on the resulting multilabel features. Finally, we removed the original `CallServiceTagged` column from the dataset and added the newly created one-hot encoded features. 
+</div>
+
+<p><a href="#"><code>Functions/Methods (Split data)</code></a></p>
+<div style="text-align: justify;">
+The script contains a function called `split_data` that is responsible for dividing the dataset into training and testing sets using the `PHN_e` column as the basis for the split. A random seed value of 42 is used for the randomization process to ensure reproducibility. 
+The `split_data` function accepts three parameters: `clean_data`, which represents the dataset to be split, col, which specifies the column used for the split (in this case, it is `PHN_e`), and seed, which is the seed value for random number generation. 
+Within the `split_data` function, the unique values of the specified column are shuffled. Then, the shuffled values are divided into an 80% portion for training and a 20% portion for testing. The resulting training dataset is stored in the `train_df` variable, while the testing dataset is stored in the `test_df` variable. 
+</div>
+
+<p><a href="#"><code>Save Preprocessed Data to Feather Format</code></a></p>
+<div style="text-align: justify;">
+The processed dataset, training dataset, and testing dataset are stored in Feather files to be used for model fitting. 
+</div>
+
+<p><a href="#"><code>Output</code></a></p>
+<h4 id="split-data-script">Split Data Script</h4>
+<p>The following is a docstring of the script <a href="#"><code>split_data.py</code></a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>def split_data(clean_data: pd.DataFrame, col: str, seed: int) -&gt; tuple:
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>  &quot;&quot;&quot;
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    Splits the clean data into training and test datasets based on the specified column.
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    Parameters:
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        clean_data (pd.DataFrame): The clean data to be split.
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        col (str): The column name used to split the data.
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>        seed (int): The random seed for shuffling the unique values.
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    Returns:
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        tuple: A tuple containing two pd.DataFrame objects: (train_df, test_df).
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>               train_df: The training dataset.
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>               test_df: The test dataset.
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    Notes:
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        - This function shuffles the data based on the specified unique identifier column and
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>          splits the data into training and test sets.
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        - The split ratio is 80:20, where 80% of the data is used for training and 20% is used for testing.
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        - A fixed seed is used for reproducibility.
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>        - The function drops columns that meet either of the following conditions:
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>            1. The column has fewer than two unique values in the training dataset.
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>            2. The column used for splitting the data.
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>        - The &quot;index&quot; column is dropped as well.
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>    Examples:
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>        train_data, test_data = split_data(clean_data, &#39;category&#39;, 42)
+<a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>    &quot;&quot;&quot;
+</code></pre></div>
+<h4 id="din-decoder-script">DIN Decoder Script</h4>
+<p>The following is a docstring of the script <a href="#"><code>din_decoder.py</code></a>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>def convert_din_to_text(din_list, group=&#39;TC2&#39;):
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    Converts a list of DIN (Drug Identification Number) codes to corresponding text labels based on the specified group.
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    Parameters:
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>        din_list (list): A list of DIN codes to be converted to text labels.
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        group (str, optional): Specifies the group to use for mapping DIN codes to text labels. Default is &#39;TC2&#39;.
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    Returns:
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        list: A list of unique text labels corresponding to the input DIN codes.
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    Notes:
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        - This function reads the DIN classification data from the &#39;din_classification.json&#39; file.
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        - Each DIN code in the input list is converted to a string.
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        - The function tries to find the corresponding text label in the DIN classification dictionary using the specified group.
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        - If the DIN code is not found or encounters an exception, it is labeled as &#39;Other&#39;.
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>        - The function returns a list of unique text labels.
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    Example:
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>        converted_labels = convert_din_to_text([&#39;123456&#39;, &#39;789012&#39;], group=&#39;TC2&#39;)
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>def decode_din(data, col_name, group=&#39;TC2&#39;):
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>    &quot;&quot;&quot;
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>    Decodes DIN codes in a DataFrame column by applying the convert_din_to_text function.
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>    Parameters:
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>        data: The input DataFrame containing the column to decode.
+<a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>        col_name (str): The name of the column in the DataFrame to decode DIN codes from.
+<a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a>        group (str, optional): Specifies the group to use for mapping DIN codes to text labels. Default is &#39;TC2&#39;.
+<a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>
+<a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>    Returns:
+<a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>        pandas.DataFrame: A modified copy of the input DataFrame with the specified column decoded.
+<a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>
+<a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>    Notes:
+<a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>        - This function creates a temporary copy of the input DataFrame.
+<a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a>        - The specified column values are split by &#39;;&#39; delimiter.
+<a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>        - The convert_din_to_text function is applied to the split values, using the specified group.
+<a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>        - The resulting text labels are stored in the modified copy of the DataFrame.
+<a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a>    &quot;&quot;&quot;
+</code></pre></div></p>
+<h4 id="multi-label-binazer">Multi Label Binazer</h4>
+<p>The following is a docstring of the script <a href="#"><code>mlb.py</code></a>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>def multi_label_binarizer(data: pd.DataFrame, col_name: str) -&gt; pd.DataFrame:
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    &quot;&quot;&quot;
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    Perform multi-label binarization on a column in the given DataFrame.
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    Parameters:
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        data (pd.DataFrame): The input DataFrame containing the data to be binarized.
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        col_name (str): The name of the column to be binarized.
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    Returns:
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        pd.DataFrame: The resulting DataFrame after performing multi-label binarization.
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>                      The original DataFrame is concatenated with the binarized columns.
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    Notes:
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        - This function performs multi-label binarization on a specified column in the given DataFrame.
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>        - The column is expected to contain lists or arrays of labels.
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>        - Each label in the column is treated as a separate binary feature, and a new column is created for each unique label.
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        - If a label appears in a row, the corresponding column value is set to 1; otherwise, it is set to 0.
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>    Examples:
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        &gt;&gt;&gt; binarized_data = multi_label_binarizer(data, &#39;labels&#39;)
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>    &quot;&quot;&quot;
+</code></pre></div></p>
+<h4 id="column-heidi_visit-cleaning-script">Column Heidi_visit Cleaning Script</h4>
+<p>The following is a docstring of the script <a href="#"><code>heidi_visit_clean.py</code></a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>def my_func(x):
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    &quot;&quot;&quot;
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    Maps a value to its corresponding key in the mapping dictionary.
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    Parameters:
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        x: The value to be mapped.
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    Returns:
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        str: The corresponding key if found in the mapping dictionary.
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>        np.nan: If the value is not found in any of the dictionary&#39;s values.
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    Notes:
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        - This function iterates over the keys of the mapping dictionary.
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        - If the value is found in any of the dictionary&#39;s values, the corresponding key is returned.
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>        - If the value is not found in any of the dictionary&#39;s values, np.nan is returned.
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    &quot;&quot;&quot;
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>def clean_heidi_visit_col(data):
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>    &quot;&quot;&quot;
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    Clean the &#39;heidi VISIT REASON&#39; column in the given DataFrame.
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>    Parameters:
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>        data: The input DataFrame containing the column to be cleaned.
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>    Returns:
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>        pandas.DataFrame: The input DataFrame with the &#39;heidi VISIT REASON&#39; column cleaned.
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>    Notes:
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>        - This function performs several cleaning operations on the &#39;heidi VISIT REASON&#39; column:
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>            - Replaces &#39;[\.0\\*,-]&#39; with an empty string.
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>            - Replaces &#39;*/I&#39; with an empty string.
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>            - Replaces &#39;&amp;&#39; with an empty string.
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>            - Converts the column values to lowercase and removes leading/trailing whitespace.
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>        - The my_func() function is applied to each cleaned value to map it to its corresponding key.
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>        - The resulting mapped values are stored in the &#39;heidi_VISIT_REASON clean&#39; column of the input DataFrame.
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>    &quot;&quot;&quot;
+</code></pre></div>
+<h4 id="preprocessing-heidi_visit-script">Preprocessing heidi_visit Script</h4>
+<p>The following is a docstring of the script <a href="#"><code>helper.py</code></a>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>def process_grouped(data, col, split):
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    &quot;&quot;&quot;
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    Process a grouped column in the given DataFrame by performing multilabel binarization.
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    Parameters:
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        data: The input DataFrame containing the grouped column.
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        col (str): The name of the grouped column to be processed.
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        split (str): The delimiter used to split the values in the grouped column.
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    Returns:
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        pandas.DataFrame: A DataFrame with the processed grouped column after multilabel binarization.
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    Notes:
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        - This function selects the specified grouped column from the DataFrame and fills missing values with &#39;MISSING&#39;.
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>        - The column values are split based on the provided delimiter.
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        - Multilabel binarization is applied to the split values using the sklearn MultiLabelBinarizer.
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        - The resulting binary features are stored in a new DataFrame, where column names are formatted as &#39;col__class&#39;.
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    &quot;&quot;&quot;
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>def process_cat(data, col):
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    &quot;&quot;&quot;
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>    Process a categorical column in the given DataFrame by performing various cleaning operations.
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    Parameters:
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>        data: The input DataFrame containing the categorical column.
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>        col (str): The name of the categorical column to be processed.
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>    Returns:
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>        pandas.DataFrame: The input DataFrame with the processed categorical column.
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>    Notes:
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>        - This function applies several cleaning operations to the specified categorical column:
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>            - Replaces &#39;[\.()\[\]*,-]&#39; with an empty string.
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>            - Replaces &#39;/&#39; with a space.
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>            - Replaces &#39;&amp;&#39; with &#39;and&#39;.
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>            - Replaces multiple spaces with a single space.
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>            - Converts the column values to lowercase and removes leading/trailing whitespace.
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>            - Replaces spaces with underscores.
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>        - The processed values are stored back in the original DataFrame under the specified column name.
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>    &quot;&quot;&quot;
+</code></pre></div></p>
+<h4 id="icd-codes-decoder-script">ICD Codes Decoder Script</h4>
+<p>The following is a docstring of the script <a href="#"><code>icd_codes_decoder.py</code></a></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>def convert_icd(x, granularity=2):
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    Convert an ICD (International Classification of Diseases) code to its corresponding description based on the specified granularity.
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    Parameters:
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        x (str): The ICD code to be converted.
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        granularity (int, optional): Specifies the granularity level of the ICD code. Default is 2.
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    Returns:
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        str: The description of the ICD code at the specified granularity.
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    Notes:
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        - This function reads the ICD code mappings from the &#39;icd9_L2_codes.json&#39; and &#39;icd9_L3_codes.json&#39; files.
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        - The function tries to find the corresponding description based on the provided code and granularity.
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        - If the code is not found, it returns &quot;Other ICD Code&quot;.
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    Example:
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        description = convert_icd(&#39;123456&#39;, granularity=2)
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+<a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>def extract_codes(id_list):
+<a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>    Extract unique ICD codes from a list and convert them to their descriptions.
+<a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>
+<a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>    Parameters:
+<a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>        id_list (list): A list of ICD codes to be extracted.
+<a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>
+<a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>    Returns:
+<a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>        list: A list of unique ICD code descriptions.
+<a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>
+<a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>    Notes:
+<a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>        - This function removes duplicate ICD codes from the input list.
+<a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>        - Each ICD code is converted to its corresponding description using the convert_icd function.
+<a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a>        - The function returns a list of unique ICD code descriptions.
+<a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a>
+<a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>    Example:
+<a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a>        extracted_codes = extract_codes([&#39;123456&#39;, &#39;789012&#39;])
+<a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a>
+<a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a>
+<a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a>def decode_icd(data, col_name):
+<a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a>    Decode ICD codes in a DataFrame column by applying the extract_codes function.
+<a id="__codelineno-10-45" name="__codelineno-10-45" href="#__codelineno-10-45"></a>
+<a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a>    Parameters:
+<a id="__codelineno-10-47" name="__codelineno-10-47" href="#__codelineno-10-47"></a>        data: The input DataFrame containing the column to decode.
+<a id="__codelineno-10-48" name="__codelineno-10-48" href="#__codelineno-10-48"></a>        col_name (str): The name of the column in the DataFrame to decode ICD codes from.
+<a id="__codelineno-10-49" name="__codelineno-10-49" href="#__codelineno-10-49"></a>
+<a id="__codelineno-10-50" name="__codelineno-10-50" href="#__codelineno-10-50"></a>    Returns:
+<a id="__codelineno-10-51" name="__codelineno-10-51" href="#__codelineno-10-51"></a>        pandas.DataFrame: A modified copy of the input DataFrame with the specified column decoded.
+<a id="__codelineno-10-52" name="__codelineno-10-52" href="#__codelineno-10-52"></a>
+<a id="__codelineno-10-53" name="__codelineno-10-53" href="#__codelineno-10-53"></a>    Notes:
+<a id="__codelineno-10-54" name="__codelineno-10-54" href="#__codelineno-10-54"></a>        - This function creates a temporary copy of the input DataFrame.
+<a id="__codelineno-10-55" name="__codelineno-10-55" href="#__codelineno-10-55"></a>        - The specified column values are split by &#39;;&#39; delimiter.
+<a id="__codelineno-10-56" name="__codelineno-10-56" href="#__codelineno-10-56"></a>        - The extract_codes function is applied to the split values.
+<a id="__codelineno-10-57" name="__codelineno-10-57" href="#__codelineno-10-57"></a>        - The resulting ICD code descriptions are stored in the modified copy of the DataFrame.
+<a id="__codelineno-10-58" name="__codelineno-10-58" href="#__codelineno-10-58"></a>
+<a id="__codelineno-10-59" name="__codelineno-10-59" href="#__codelineno-10-59"></a>    Example:
+<a id="__codelineno-10-60" name="__codelineno-10-60" href="#__codelineno-10-60"></a>        decoded_df = decode_icd(data, &#39;icd_column&#39;)
+<a id="__codelineno-10-61" name="__codelineno-10-61" href="#__codelineno-10-61"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-62" name="__codelineno-10-62" href="#__codelineno-10-62"></a>
+<a id="__codelineno-10-63" name="__codelineno-10-63" href="#__codelineno-10-63"></a>
+<a id="__codelineno-10-64" name="__codelineno-10-64" href="#__codelineno-10-64"></a>
+<a id="__codelineno-10-65" name="__codelineno-10-65" href="#__codelineno-10-65"></a>def combine_icd_codes(data, col_names=[&#39;msp_dx&#39;, &#39;hosp_dx&#39;, &#39;ed_dx&#39;]):
+<a id="__codelineno-10-66" name="__codelineno-10-66" href="#__codelineno-10-66"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-67" name="__codelineno-10-67" href="#__codelineno-10-67"></a>    Combine multiple ICD code columns into a single column in the DataFrame.
+<a id="__codelineno-10-68" name="__codelineno-10-68" href="#__codelineno-10-68"></a>
+<a id="__codelineno-10-69" name="__codelineno-10-69" href="#__codelineno-10-69"></a>    Parameters:
+<a id="__codelineno-10-70" name="__codelineno-10-70" href="#__codelineno-10-70"></a>        data: The input DataFrame containing the ICD code columns.
+<a id="__codelineno-10-71" name="__codelineno-10-71" href="#__codelineno-10-71"></a>        col_names (list, optional): The names of the ICD code columns to combine. Default is [&#39;msp_dx&#39;, &#39;hosp_dx&#39;, &#39;ed_dx&#39;].
+<a id="__codelineno-10-72" name="__codelineno-10-72" href="#__codelineno-10-72"></a>
+<a id="__codelineno-10-73" name="__codelineno-10-73" href="#__codelineno-10-73"></a>    Returns:
+<a id="__codelineno-10-74" name="__codelineno-10-74" href="#__codelineno-10-74"></a>        pandas.DataFrame: The input DataFrame with the combined ICD code column.
+<a id="__codelineno-10-75" name="__codelineno-10-75" href="#__codelineno-10-75"></a>
+<a id="__codelineno-10-76" name="__codelineno-10-76" href="#__codelineno-10-76"></a>    Notes:
+<a id="__codelineno-10-77" name="__codelineno-10-77" href="#__codelineno-10-77"></a>        - This function creates a new column named &#39;all_icd_codes&#39; in the DataFrame.
+<a id="__codelineno-10-78" name="__codelineno-10-78" href="#__codelineno-10-78"></a>        - The values from the specified ICD code columns are concatenated using &#39;;&#39; as the delimiter.
+<a id="__codelineno-10-79" name="__codelineno-10-79" href="#__codelineno-10-79"></a>        - The original ICD code columns are dropped from the DataFrame.
+<a id="__codelineno-10-80" name="__codelineno-10-80" href="#__codelineno-10-80"></a>
+<a id="__codelineno-10-81" name="__codelineno-10-81" href="#__codelineno-10-81"></a>    Example:
+<a id="__codelineno-10-82" name="__codelineno-10-82" href="#__codelineno-10-82"></a>        combined_df = combine_icd_codes(data, col_names=[&#39;column1&#39;, &#39;column2&#39;])
+<a id="__codelineno-10-83" name="__codelineno-10-83" href="#__codelineno-10-83"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-84" name="__codelineno-10-84" href="#__codelineno-10-84"></a>
+<a id="__codelineno-10-85" name="__codelineno-10-85" href="#__codelineno-10-85"></a>
+<a id="__codelineno-10-86" name="__codelineno-10-86" href="#__codelineno-10-86"></a>def multi_label_binarizer(data, col_name):
+<a id="__codelineno-10-87" name="__codelineno-10-87" href="#__codelineno-10-87"></a>    &quot;&quot;&quot;
+<a id="__codelineno-10-88" name="__codelineno-10-88" href="#__codelineno-10-88"></a>    Perform multilabel binarization on a column in the DataFrame.
+<a id="__codelineno-10-89" name="__codelineno-10-89" href="#__codelineno-10-89"></a>
+<a id="__codelineno-10-90" name="__codelineno-10-90" href="#__codelineno-10-90"></a>    Parameters:
+<a id="__codelineno-10-91" name="__codelineno-10-91" href="#__codelineno-10-91"></a>        data: The input DataFrame containing the column to perform multilabel binarization on.
+<a id="__codelineno-10-92" name="__codelineno-10-92" href="#__codelineno-10-92"></a>        col_name (str): The name of the column to be binarized.
+<a id="__codelineno-10-93" name="__codelineno-10-93" href="#__codelineno-10-93"></a>
+<a id="__codelineno-10-94" name="__codelineno-10-94" href="#__codelineno-10-94"></a>    Returns:
+<a id="__codelineno-10-95" name="__codelineno-10-95" href="#__codelineno-10-95"></a>        pandas.DataFrame: The input DataFrame with the binarized columns added.
+<a id="__codelineno-10-96" name="__codelineno-10-96" href="#__codelineno-10-96"></a>
+<a id="__codelineno-10-97" name="__codelineno-10-97" href="#__codelineno-10-97"></a>    Notes:
+<a id="__codelineno-10-98" name="__codelineno-10-98" href="#__codelineno-10-98"></a>        - This function creates a temporary Series by exploding the specified column.
+<a id="__codelineno-10-99" name="__codelineno-10-99" href="#__codelineno-10-99"></a>        - A count column is added to the temporary Series.
+<a id="__codelineno-10-100" name="__codelineno-10-100" href="#__codelineno-10-100"></a>        - The temporary Series is then pivoted to obtain a DataFrame with binarized columns.
+<a id="__codelineno-10-101" name="__codelineno-10-101" href="#__codelineno-10-101"></a>        - Missing values are filled with 0, and the column names are prefixed with &#39;col_name_&#39;.
+<a id="__codelineno-10-102" name="__codelineno-10-102" href="#__codelineno-10-102"></a>        - The original column specified is dropped from the DataFrame, and the binarized columns are concatenated.
+<a id="__codelineno-10-103" name="__codelineno-10-103" href="#__codelineno-10-103"></a>
+<a id="__codelineno-10-104" name="__codelineno-10-104" href="#__codelineno-10-104"></a>    Example:
+<a id="__codelineno-10-105" name="__codelineno-10-105" href="#__codelineno-10-105"></a>        binarized_df = multi_label_binarizer(data, &#39;column_name&#39;)
+<a id="__codelineno-10-106" name="__codelineno-10-106" href="#__codelineno-10-106"></a>    &quot;&quot;&quot;
+</code></pre></div>
+<h3 id="imputation-techniques">Imputation Techniques</h3>
+<div style="text-align: justify;">
+One of the primary challenges we faced in our project is dealing with class imbalance, as there is a significant disparity between the number of patients who required immediate assistance at the emergency department and those who were advised to stay at home and practice self-care. This class imbalance could have potentially introduced bias in the predictive model, leading to poor performance on the minority class. To mitigate this challenge, we used an oversampling technique, specifically the Synthetic Minority Over-sampling Technique for Nominal and Continuous (SMOTE-NC). SMOTE-NC generates synthetic samples for the "stay at home and self-care" class by creating new observations that combine existing observations from the minority class. These new observations are created through interpolation between the existing minority class samples and the addition of random perturbations to the feature values. By using SMOTE-NC, we aim to create a more balanced training set that includes an adequate representation of the minority class. This approach helped improve the performance of our predictive model on the minority class, ensuring that it is not biased towards the majority class.
+</div>
+
+<h3 id="dropped-columns">Dropped Columns</h3>
+<p>The list of columns with their explantions can be found below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>| Dropped Columns                           |  Reasoning Behind Dropping the Columns                                                                                                   |
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>|:------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------|
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>| Callld                                    | Unique identifier                                                                                                                        |
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>| PHN_e                                     | Unique identifier                                                                                                                        |
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>| KBDisposition                             | Removed as it serves as our baseline model                                                                                               |
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>| RNDisposition                             | Removed as it is similar to our baseline model                                                                                           |
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>| FinalDispositionld                        | Duplicate column, already using FinalDisposition                                                                                         |
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>| FinalDispositionUserld                    | Model decision should be based on the patient&#39;s condition and other factors, not on who picked the call                                  |
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>| Clientld                                  | Do we want to learn if certain patients are using the service more than others?                                                          |
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>| CallOrigin                                | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>| CallLanquage                              | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>| ClientPossibleDuplicate                   | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>| EncounterType                             | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>| Consent                                   | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>| CallReceivedUserReportClassification      | Duplicate column exists                                                                                                                  |
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>| HandledByPharmacist                       | Only one category available (O: no pharmacist took the call)                                                                             |
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>| EvaluationConsentUserReportClassification | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>| HA                                        | Detailed geographical areas &quot;CHSA&quot; and &quot;LHA&quot; included as the areas are hierarchical                                                      |
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>| ATTCHD_GP_FLG                             | May introduce redundancy                                                                                                                 |
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>| ATTCHD_GRP_PRCTC_ELG                      | Data heavily skewed. May not contribute significantly to patient prediction inquiry                                                      |
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>| Ethnocultural_composition_Quintiles       | Data heavily skewed. May not contribute significantly to patient prediction inquiry                                                      |
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>| Ethnocultural composition Scores          | Distributions look similar. Quantiles could be considered due to sufficient observations at each level                                   |
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>| Situational vulnerability Quintiles       | Unlikely to be useful for the prediction task. Medians are close and many outliers. Consider including quintiles and dropping the column |
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>| Situational vulnerability Scores          | Distributions look similar. Quantiles could be considered due to sufficient observations at each level                                   |
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>| Economic_dependency_Quintiles             | Unlikely to be useful for the prediction task. Medians are close and many outliers. Consider including quintiles and dropping the column |
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>| Economic dependency Scores                | Distributions look similar. Quantiles could be considered due to sufficient observations at each level                                   |
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>| Residential_instability_Quintiles         | Unlikely to be useful for the prediction task. Medians are close and many outliers. Consider including quintiles and dropping the column |
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>| Residential_instability_Scores            | Distributions look similar. Quantiles could be considered due to sufficient observations at each level                                   |
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>| call date                                 | Not a meaningful predictor from a data science perspective. Consider creating another column indicating a different factor               |
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>| NAVInformed                               | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>| NAVConfidence                             | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>| NSinformed                                | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>| NSConfidence                              | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>| NSActivation                              | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>| NSClientNeeds                             | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>| NAVCallerAnsweredQuestion                 | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>| NSCallerAnsweredQuestion                  | Data missing in over 95% of cases                                                                                                        |
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>| heidi_VISIT_CODE                          | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a>| heidi seen time                           | Information captured by other columns                                                                                                    |
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>| heidi inroom time                         | Information captured by other columns                                                                                                    |
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>| heidi_appt_time                           | Information captured by other columns                                                                                                    |
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>| HOME DB_e                                 | Encrypted values with no meaningful use to retain                                                                                        |
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a>| MAIL DB e                                 | Encrypted values with no meaningful use to retain                                                                                        |
+<a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a>| BEST DB e                                 | Encrypted values with no meaningful use to retain                                                                                        |
+<a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>| pop cohort yr                             | Excluding this column as it indicates the linked year for each patient                                                                   |
+<a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a>| LTC FLAG                                  | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a>| DO FLAG OLDER NON USER                    | Data heavily skewed                                                                                                                      |
+<a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a>| HPG CODE                                  | Duplicate column exists                                                                                                                  |
+<a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a>| call min 811                              | Excluding this column as it doesn&#39;t provide meaningful information                                                                       |
+<a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a>| call second 811                           | Excluding this column as it doesn&#39;t provide meaningful information                                                                       |
+</code></pre></div>
+<h2 id="final-results">Final Results</h2>
+<h3 id="dashboard">Dashboard</h3>
+<p>You can locate the dashboards and its corresponding documentation <a href="#"><code>here</code></a></p>
+<h2 id="future-scope">Future Scope</h2>
+<p>We believe that the next phase of this project could prioritize the enhancement of feature engineering and selection
+methods, particularly with a ficus on DIN numbers and ICD codes. By making significant improvements in these areas, the
+project can unlock more valuable information from the data and achieve notably improved accuracy in its analyses.</p>
+<p><mark>Feature Selection:</mark> Despite the team's efforts in conducting feature selection within the given time constraints, we strongly
+believe that there is further scope for carefully choosing the most essential features. By employing this approach, we can
+effectively decrease the data size that needs to be processed. Consequently, this will accelerate the analysis process and
+optimize the utilization of computational resources.</p>
+<p><mark>Using Multiple Models:</mark> Another area for improvement in the analysis is enhancing the accuracy. One approach to achieve
+this is by exploring the integration of multiple models. By leveraging the strengths of different models and combining their
+unique capabilities, we can obtain superior results. This approach is similar to teamwork, where each model brings its own
+valuable insights. however, it is important to remember that using multiple models requires more computational resourses.
+therefore, it is crucial to carefully consider the available resourses before implementing this approach.</p>
+<p><mark>Making the Most of Patient Notes:</mark> We believe that accessing patient notes can be a game-changer in our analysis. These
+notes contain detailed information that can greatly enhance our understanding of medical conditions and patient outcomes.
+By using language processing techniques, we can unlock the power of patient notes. This helps us extract important insights
+from written information leading to better predictions and improved performance.</p>
+<p>In sum, to futher improve the analysis, we believe that there is need to keep exploring and refining the methods. By focusing
+on DIN numbers and ICD codes, using feature selection, trying multiple models, and leveraging patient notes with language
+processing, we can achiev more accurate and insighful results. These adancements have the potential to transform the scope
+of this project, leading to better care and outcomes for patients.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; 2023 <a href="https://github.com/florawendy19/mkdoc-heidi"  target="_blank" rel="noopener">Capstone Project</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["navigation.tabs", "navigation.sections", "toc.integrate", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy"], "search": "assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.a51614de.min.js"></script>
+      
+    
+  </body>
+</html>
