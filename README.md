@@ -2,10 +2,9 @@
 
 - [Overview](#overview)
 - [Motivation and Purpose](#motivation-and-purpose)
-- [Usage](#usage)
+- [Installation](#installation)
 - [Description](#description)
 - [App Sketch](#app-sketch)
-- [Reference](#reference)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -19,14 +18,6 @@ triage prediction with interactive capabilities that allow them to study the acc
 
 Engineering an app to help nurses to make a triage decision may have a significant impact on patients as well as medical
 system overall.
-
-## Usage
-
-The link to the app is [here]()
-
-Usage examples:
-
-### Running the App
 
 ## Installation
 
@@ -59,7 +50,6 @@ The dashboard consists of one web page that shows statistics and 2 main reactive
 
 ## App Sketch
 
-## Reference
 
 ## Contributing
 
