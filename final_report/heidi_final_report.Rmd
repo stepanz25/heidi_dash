@@ -25,25 +25,22 @@ library(tidyverse)
 <!-- #region tags=[] -->
 # Executive Summary
 <div style="text-align: justify;">
-The primary objective of this initiative is to enhance the effectiveness of the 8-1-1 nurse triage model by incorporating the expertise of the HelathLink BC Emergency iDoctor in Assistance Program (HEiDi) physicians. By developing a machine learning model capable of predicting HEiDi physician disposition, the project aims to facilitate nurse triage decisions, resulting in a reduction of urgent in-person emergency department (ED) visits with utmost safety and reliability.
+The primary objective of this initiative is to enhance the 8-1-1 nurse triage model by incorporating the expertise of HealthLink BC Emergency iDoctor in Assistance Program (HEiDi) physicians. Through the development of a machine learning model to predict HEiDi physician disposition, the project aims to improve nurse triage decisions, reducing urgent in-person emergency department (ED) visits. Techniques such as preprocessing, feature engineering, and data visualization were employed. The project included an automated data pipeline for pre-processing, model training and scoring, user-friendly dashboard/GUI development for nurse visualization.
 
-To ensure the data is in a usable format for the model, various techniques were employed, including pre-processing tasks such as encoding, scaling, and imputation. Additionally, International Classification of Diseases (ICD) and Drug Identification Number (DIN) decoding, along with knowledge-based feature engineering, were utilized to improve data cleanliness and quality.
+Continual model fine-tuning is recommended for improved performance as explained in section [Conclusion and Recommendations](#conclusion-and-recommendations). This project contributes to the healthcare industry by leveraging HEiDi physicians' expertise to enhance the nurse triage model.
 
-The project encompassed several key components, including the establishment of an automated data pipeline, model training and validation, development of a user-friendly dashboard/GUI for visualization purposes for the nurse, and the compilation of a comprehensive final report and documentation.
-
-During the Exploratory Data Analysis phase, a meticulous examination of the data was conducted, identifying the relevant features crucial for our partner's predictive inquiries. Simultaneously, features that did not contribute significant value to the model's prediction were identified and subsequently dropped during the pre-processing stage.
-
-We recommend continuity in fine-tuning the model to improve scoring metrics of the model at times when the new data is available. We recommend continuity in fine-tuning the model to improve scoring metrics of the model at times when new data becomes available. To conclude, we firmly believe that this project makes a significant contribution to the healthcare industry by leveraging the expertise of HEiDi physicians to enhance the 8-1-1 nurse triage model.
 </div>
 
 # 1. Introduction
 <div style="text-align: justify;">
-In April 2020, the HealthLink BC Emergency iDoctor-in-assistance (HEiDi) service was introduced as an innovative approach to enhance the existing 8-1-1 nursing call flow by incorporating virtual physicians (@HoE635). This integration aimed to provide comprehensive support for caller triage and improve the efficiency of healthcare services. The main motive of the project is to significantly reduce urgent in-person visits to the emergency department whereas not required, while ensuring patient safety remains a top priority.
+The HEiDi service, introduced in April 2020, enhanced the 8-1-1 nursing call flow by incorporating virtual physicians (@HoE635). This integration aimed to improve caller triage, reduce unnecessary urgent in-person ED visits, and prioritize patient safety.
 </div>
+
 ## 1.1 Data
 <div style="text-align: justify;">
-The data set comprised a consolidation of data from various sources such as the Medical Services Plan and PharmaNet. The resulting data set consisted of de-identified records of 33,597 patients. It encompassed a diverse range of data types including numerical, categorical, and binary columns, with the predominant portion consisting of numerical columns, both in float and integer formats. It's worth noting that the data set specifically focused on more severe calls that successfully reached a physician, rather than encompassing all 811 calls.
+The data set comprised a consolidation of data from various sources such as the Medical Services Plan and PharmaNet. The resulting data set consisted of de-identified records of ~33,000 patients. It encompassed a diverse range of data types including numerical, categorical, and binary columns, with the predominant portion consisting of numerical columns, both in float and integer formats. It’s worth noting that the data set specifically focused on more severe calls that successfully reached a physician, rather than encompassing all 811 calls.
 </div>
+
 ## 1.2 Objectives
 <div style="text-align: justify;">
 The main objectives of our project were (1) to extend the HEiDi physician expertise to the 8-1-1 nurse triage model to further reduce urgent in-person ED visits safely and reliably; (2) to gain insights on the most important features for the prediction task; (3) to identify any patterns in predicting two major classes “md_red” and “md_green”.
@@ -68,13 +65,11 @@ knitr::include_graphics("img/img4.png")
 <font size="2"><b>Figure 1.</b> This plot illustrates the correlation heatmap that visualizes the relationship between the number of claims for various specialty types, such as "Radiology", "Respirology", and "Gastroenterology", recorded over different time periods (30-days, 90-days, 1-year).</font>
 </div>
 
-One of the few important pre-processing steps involved the chronic disease feature, where multiple values per observation were converted into separate features using one-hot encoding. This expansion of the feature space was necessary to meet the model's input requirements, despite resulting in an increased number of features.
+Caller's health concern as recorded by HEiDi physician feature underwent some cleaning process to standardize the levels. During the cleaning process, mappings were applied to categorize and standardize the recorded health concerns. This involved mapping similar or related health concerns to a common category or level, ensuring a consistent representation across the data set.
  
 Another pre-processing step focused on extracting the hour component from the FinalDispositionAtLocal feature, which represented a timestamp. By isolating the hour at which the final disposition was made, we aimed to capture valuable temporal patterns associated with the decision-making process. This extraction not only provided a more concise representation of time but also significantly reduced the number of categories within this feature, facilitating its encoding using one-hot encoding.
 
-Caller's health concern as recorded by HEiDi physician feature underwent some cleaning process to standardize the levels. During the cleaning process, mappings were applied to categorize and standardize the recorded health concerns. This involved mapping similar or related health concerns to a common category or level, ensuring a consistent representation across the data set.
-
-The visit reason column was another one of the columns that had a lot of categories that were essentially the same. To address this, we employed cosine similarity scores to identify and group similar categories, resulting in the creation of a mapping dictionary. For instance, categories like "bite sting animal" and "bite sting human animal" were mapped as "bite sting". This process significantly reduced the number of unique categories in this column from 550 to 272.
+The visit reason column was another one of the columns that had a lot of categories that were essentially the same. To address this, we employed cosine similarity scores to identify and group similar categories, resulting in the creation of a mapping dictionary. For instance, in Figure 2, categories like "bite sting animal" and "bite sting human animal" were mapped as "bite sting". This process significantly reduced the number of unique categories in this column from 550 to 272.
 
 ```{r fig.align='center'}
 knitr::include_graphics("img/img5.png")
@@ -92,7 +87,7 @@ knitr::include_graphics("img/img6.png")
 <font size="2"><b>Figure 3.</b> Mapping DIN Numbers to their respective categories.</font>
 </div>
 
-To ensure the effective integration of ICD codes into the model, specific preprocessing steps were implemented. The columns msp_dx, hosp_dx, and ed_dx, which contained both ICD-9 and ICD-10 codes, were combined into a single column to consolidate all the ICD codes. Subsequently, an ICD-10 to ICD-9 converter was applied to harmonise the codes. Finally, all the ICD codes were mapped to their corresponding categories, significantly reducing dimensionality of the data.
+To ensure the effective integration of ICD codes into the model, specific pre-processing steps were implemented. The columns msp_dx, hosp_dx, and ed_dx, which contained both ICD-9 and ICD-10 codes, were combined into a single column to consolidate all the ICD codes. Subsequently, an ICD-10 to ICD-9 converter was applied to harmonise the codes. Finally, all the ICD codes were mapped to their corresponding categories, significantly reducing dimensionality of the data.
 
 ```{r fig.align='center'}
 knitr::include_graphics("img/img7.png")
@@ -103,14 +98,12 @@ knitr::include_graphics("img/img7.png")
 
 To divide the data set into training and testing sets, an 80/20 split was chosen based on the available ~33,000 patient records. The larger training size was selected to facilitate cross-validation with a higher number of folds, providing more reliable and robust model evaluation. Moreover, a patient-centric approach was adopted to ensure consistency for individuals with multiple entries in the data set. This approach grouped all observations related to a particular caller within the same set (either train or test), avoiding any separation between the two. The PHN (Personal Health Number) column served as a unique identifier to facilitate this splitting strategy.
 
-Additionally, during the pre-processing stage, appropriate imputation strategies were employed to handle missing values in the data set. For categorical variables, the "most frequent" strategy was applied, where missing values were replaced with the most frequently occurring value within each respective category. This approach ensured that the imputed values aligned with the dominant class distribution, maintaining the integrity of the categorical feature representation.
-
-On the other hand, for numeric columns, the "mean" imputation strategy was used. Missing values within these columns were replaced with the mean value of the available data points. By imputing the missing values with the mean, we aimed to preserve the central tendency of the numerical feature, providing a reasonable estimation for the missing entries.
+Missing values in the data set were handled during pre-processing. For categorical variables, the "most frequent" strategy replaced missing values with the most occurring category. Numeric columns used the "mean" strategy, imputing missing values with the mean of available data points. These approaches maintained the integrity of categorical features and preserved the central tendency of numerical features.
 </div>
 
 ## 2.2 Data Pipeline
 <div style="text-align: justify;">
-The Data pipeline was one of the main deliverable in the project. The goal was to create an end to end machine learning pipeline that could clean, preprocess data, train and evaluate machine learning models.
+The Data pipeline was one of the main deliverables in the project. The goal was to create an end to end machine learning pipeline that could clean, preprocess data, train and evaluate machine learning models.
 
 ```{r fig.align='center'}
 knitr::include_graphics("img/img1.png")
@@ -119,7 +112,7 @@ knitr::include_graphics("img/img1.png")
 <font size="2"><b>Figure 5.</b> High level flow of our machine learning pipeline.</font>
 </div>
 
-As could be seen from **Figure 5**, our data pipeline involved a series of steps to transform raw data into a trained model and assess its performance. The process begun with pre-processing the raw data, which included tasks like cleaning, handling missing values, and encoding variables. The pre-processed data was then used to train the model, adjusting some parameters to optimize performance. Once trained, the model was able to make predictions on new data. Evaluation metrics such as accuracy, precision were used to assess the model's performance. The model was then integrated into the dashboard, providing a visual representation of model prediction on a single patient. This pipeline enabled the transformation of raw data into actionable insights through pre-processing, model training, decision-making, evaluation, and visualization.
+As could be seen from **Figure 5**, our data pipeline involved a series of steps to transform raw data into a trained model and assess its performance. The process began with pre-processing the raw data, which included tasks like cleaning, handling missing values, and encoding variables. The pre-processed data was then used to train the model, adjusting some parameters to optimize performance. Once trained, the model was able to make predictions on new data. Evaluation metrics such as accuracy, precision were used to assess the model's performance. The model was then integrated into the dashboard, providing a visual representation of model prediction on a single patient. This pipeline enabled the transformation of raw data into actionable insights through pre-processing, model training, decision-making, evaluation, and visualization.
 </div>
 
 ## 2.3 XGBoost
@@ -175,7 +168,7 @@ In an attempt to deal with the class imbalance, we used a common technique calle
 | logistic_regression | 0.63 | 0.68 | 0.63 | 0.68 | 0.63 | 0.68 |
 | xgboost             | 0.74 | 0.82 | 0.74 | 0.82 | 0.75 | 0.84 |
 
-Upon comparing the test set results in the Table 3 (with SMOTE-NC) and Table 4 (without SMOTE-NC), it became evident that the application of SMOTE did not yield the anticipated outcomes. Despite promising improvements observed during cross-validation, the results obtained from the test set highlighted that SMOTE led to increased overfitting and poorer performance compared to the model without it. For reference, please refer to the accompanying figures in the text below.
+Upon comparing the test set results in Table 3 (with SMOTE-NC) and Table 4 (without SMOTE-NC), it became evident that the application of SMOTE did not yield the anticipated outcomes. Despite promising improvements observed during cross-validation, the results obtained from the test set highlighted that SMOTE led to increased overfitting and poorer performance compared to the model without it. For reference, please refer to the accompanying figures in the text below.
 
 <div style="text-align: center;">
 <font size="2"><b>Table 3:</b> Test results with SMOTE-NC.</font>
@@ -212,7 +205,7 @@ Despite incorporating additional features through feature engineering and making
 | logistic_regression | 0.45 | 0.55 | 0.44 | 0.59 | 0.41 | 0.51 |
 | xgboost             | 0.63 | 0.74 | 0.36 | 0.51 | 0.47 | 0.87 |
 
-Our new approach, which involved utilizing a Dual Logistic Regression model, proved to be highly effective in achieving the best performance on the test set. Through this innovative approach and as could be seen in the **Table 6**, we were able to optimize the model's predictive capabilities and obtain superior results compared to previous methods.
+Our new approach, which involved utilizing a Dual Logistic Regression model, proved to be highly effective in achieving the best performance on the test set. Through this innovative approach and as could be seen in Table 6, we were able to optimize the model's predictive capabilities and obtain superior results compared to previous methods.
 
 <div style="text-align: center;">
 <font size="2"><b>Table 6:</b> Metrics for individual models in the Dual Logistic Regression.</font>
@@ -259,22 +252,20 @@ Improvements could involve additional visualizations, expanded feature analysis,
 <div style="text-align: justify;">
 One of the biggest obstacles encountered during the project was hardware limitations. The XGBoost model, even with just 20 iterations, took over 40 hours to run. This significantly impacted the efficiency and speed of model development. With access to more computational resources, such as high-performance computing clusters, the quality of the models could be greatly enhanced through extensive parameter tuning and optimization.
  
-Another limitation of the project was the availability of data, both in terms of quality and quantity. Higher quality data would have reduced the need for the model to fill in gaps and missing values, leading to improved performance and accuracy. Additionally, having a larger quantity of data would have provided more diversity, allowing the model to learn a wider range of patterns and better generalize its predictions.
+The project was limited by the availability of data, both in terms of quality and quantity. Higher quality data would have improved performance and accuracy, reducing the need for imputation. A larger quantity of data would have allowed for better generalization and learning of diverse patterns.
 </div>
 
 # 5. Conclusion and Recommendations
 <div style="text-align: justify;">
-In conclusion, this initiative aimed to enhance the 8-1-1 nurse triage model by incorporating the expertise of HEiDi physicians. By developing a machine learning model that predicts HEiDi physician disposition, we aimed to improve nurse triage decisions, leading to a reduction in urgent in-person emergency department visits while prioritizing patient safety.
+This initiative aimed to improve nurse triage decisions by incorporating the expertise of HEiDi physicians. We developed a machine learning model to predict HEiDi physician disposition and prioritize patient safety while reducing unnecessary emergency department visits.
 
-Our initial analysis showed that XGBoost was the best performing model. However, the application of SMOTE-NC did not yield the anticipated improvements, and the models showed increased overfitting. As a result, we introduced a dual model approach, which divided the triage decision into two binary classification tasks and combined the outputs to make the final decision. Logistic Regression was used for this approach.
+Our initial analysis identified XGBoost as the best performing model. However, applying SMOTE-NC did not yield expected improvements and led to increased overfitting. To address this, we introduced a dual model approach using Logistic Regression to divide the triage decision into two binary classification tasks and combine the outputs for the final decision.
 
-Moving forward, we recommend further fine-tuning of the models to improve their scoring metrics when new data becomes available. A significant aspect that holds potential for improvement is the feature engineering stage, particularly concerning DIN numbers and ICD codes. By refining the techniques used to engineer features from these variables, it becomes possible to extract more valuable insights and enhance the model's predictive performance. An interesting approach to explore is the hierarchical grouping of DIN numbers and ICD codes, which could potentially provide insights into the urgency or priority levels associated with nurse’s disposition. By incorporating this hierarchical structure, the model may benefit from a more nuanced understanding of the data and make more informed predictions.
- 
-Another avenue to consider is feature selection, which can help reduce the input data size and computational complexity. By identifying the most relevant and informative features, the model can be trained more efficiently, enabling the exploration of more complex computations, and potentially leading to improved results.
- 
-Additionally, the application of a dual model technique using alternative models or ensemble methods could be beneficial. This approach would leverage the strengths of different models and compensate for their individual weaknesses, potentially enhancing the model's predictive performance. However, it is important to note that such an approach would require additional computational resources to support the training and implementation of multiple models simultaneously.
- 
-Access to patient notes data could also greatly enhance the performance of the model. Leveraging natural language processing (NLP) techniques to extract valuable information from text-based patient notes has the potential to provide deeper insights and improve the model's understanding of the context surrounding each case.
+Moving forward, we recommend fine-tuning the models with new data and focusing on improving feature engineering. Refining techniques for DIN numbers and ICD codes can provide valuable insights and enhance predictive performance. Exploring hierarchical grouping of these variables could reveal urgency or priority levels for nurse disposition.
+
+Feature selection can reduce input data size and computational complexity, improving efficiency and potentially achieving better results. Additionally, applying alternative models or ensemble methods through a dual model technique could enhance predictive performance, albeit requiring additional computational resources.
+
+Access to patient notes data would greatly benefit the model. Leveraging NLP techniques to extract information from text-based notes can provide deeper insights and improve contextual understanding for each case.
 </div>
 
 # References
