@@ -16,17 +16,16 @@ triage prediction with interactive capabilities that allow them to study the acc
 
 ## Motivation and Purpose
 
-Engineering an app to help nurses to make a triage decision may have a significant impact on patients as well as medical
-system overall.
+Engineering an app to help nurses to make a triage decision may have a significant impact on patients as well as medical system overall. If the model performance can be of sufficient standard, it can be used to aid the nurse in making the traige decision.
 
 ## Data Pipeline
 
-The data pipeline created during our analysis is shown below. The folders marked with '00' are the initial setup which create the necessary files to run the analysis.
+The data pipeline created during our analysis has been shown below. The output of this pipeline is incorporated in the dashboard delivered to the capstone partners. The folders marked with '00' are the initial setup which create the necessary data files to run the rest of the analysis.
 
 Following this, we have the order of the pipeline as:
-- 01-eda
-- 02-preprocessing
-- 03-models
+- 01-eda: An explorable notebook showcasing our findings during the exploratory phase of the project
+- 02-preprocessing: An explorable notebook which guides the user through the preprocessing process
+- 03-models: pipeline for building the models used in the teams analysis in a reprodcible manner as well as evaluation and diagnostics for the models.
 
 ![image](screenshots/VM_Repo.png)
 
@@ -36,36 +35,31 @@ The data pipeline also provides the foundations for further analyses which the p
 
 ![image](screenshots/README.png)
 
+Followinng is a Screenshot of the project kanban board used and managed by the team to effectively and efficiently keep track of the project status.
+
 ![image](screenshots/kanban_board.png)
 
 ## Installation
 
-If you would like to help contribute to the app, you can set up the system as follows:
+Follow the following steps to reproduce the outputs:
 
-1. Clone this repo using `https://github.com/stepanz25/heidi_dash.git`
-2. Setup the environment file and download the necessary packages listed in `requirements.txt` using `conda`
-   and `pip `
-
+1. Navigate to a folder of your choice on your local machine. Then open terminal from the folder and paste the following commands into it. You can install conda from [here](https://docs.conda.io/en/latest/miniconda.html)
 ```
 conda create --name heidi-dash python=3.8
 conda activate heidi-dash
 pip install -r requirements.txt
 ```
-
-### To run the app locally:
-
-1. Navigate to the root of this repo
-2. In the command line, enter
-
+2. Clone the repository and run the dashboard app
 ```
-python src/app.py
+git clone https://github.com/stepanz25/heidi_dash.git
+cd heidi_dash
+python app.py
 ```
-
-3. Copy the address (http://127.0.0.1:8051/) printed out after "Dash is running on" to a browser to view the Dash app.
+3. Copy the link from the command line on browser to view the dashboard.
 
 ## Description
 
-The dashboard consists of one web page that shows statistics and 2 main reactive plots:
+The dashboard consists of one web page which displays information relevant to the nurse, as well as the model decision and interpretation. The dashboard shown below contains mock up data and does not contain any of the actual data. This has been done to ensure utmost privacy of the dataset that we worked with.
 
 ## App Sketch
 
