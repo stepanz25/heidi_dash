@@ -221,7 +221,7 @@ Our new approach, which involved utilizing a Dual Logistic Regression model, pro
 | train_recall_red      | 0.67 |
 | test_recall_red       | 0.64 |
 
-By combining the decisions of the two models, as mentioned previously, we were able to achieve our highest precision score of 0.76 and highest recall score of 0.64 on the test set (**Table 6**). This signifies a significant improvement in the overall performance of our prediction system. 
+By combining the decisions of the two models, as mentioned previously, we were able to achieve our highest precision score of **0.76** and highest recall score of **0.64** on the test set (**Table 6**). This signifies a significant improvement in the overall performance of our prediction system. 
 </div>
 
 # 3. Data Product
