@@ -69,6 +69,8 @@ The dashboard consists of one web page that shows statistics and 2 main reactive
 
 ## App Sketch
 
+![app](screenshots/dashboard_sketch.gif)
+
 
 ## Contributing
 
