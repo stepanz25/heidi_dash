@@ -47,12 +47,12 @@ Follow the following steps to reproduce the outputs:
 ```
 conda create --name heidi-dash python=3.8
 conda activate heidi-dash
-pip install -r requirements.txt
 ```
-2. Clone the repository and run the dashboard app
+2. Clone the repository, install the requirements and run the dashboard app
 ```
 git clone https://github.com/stepanz25/heidi_dash.git
 cd heidi_dash
+pip install -r requirements.txt
 python app.py
 ```
 3. Copy the link from the command line on browser to view the dashboard.
